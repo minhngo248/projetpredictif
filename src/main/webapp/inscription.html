@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Connexion</title>
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+    <body>
+
+        <h1>Inscription</h1>
+
+        <!-- Paragraphe avec id="notification" pour les messages de notification -->
+        <p id="notification">S'inscrire.</p>
+
+        <!-- Champs et Bouton de Formulaire -->
+        Nom: <input type="text" id="champ-nom" size="80" />
+        <br/>
+        Prénom: <input type="text" id="champ-prenom" />
+        <br/>
+        Date de naissance: <input type="text" id="champ-dateNaissance" />
+        <br/>
+        Adresse postale: <input type="text" id="champ-adresse" />
+        <br/>
+        Téléphone portable: <input type="text" id="champ-tel" />
+        <br/>
+        Mail: <input type="text" id="champ-login" />
+        <br/>
+        Mot de passe: <input type="password" id="champ-password" />
+        <br/>
+        Confirmation mot de passe:  <input type="password" id="champ-confirmPassword" />
+        <br/>
+        <button id="bouton-retourConnexion">Retour</button>
+        <button id="bouton-inscription">Valider</button>
+
+        <script>
+            $(document).ready(function () {
+                $('#bouton-inscription').on('click', function () { // Fonction appelée lors du clic sur le bouton
+
+                    console.log("clic sur le bouton d'inscription"); // LOG dans Console Javascript
+                    $('#notification').html("Inscription en cours..."); // Message pour le paragraphe de notification
+
+                    // Récupération de la valeur des champs du formulaire
+                    var champNom = $('#champ-nom').val();
+                    var champPrenom = $('#champ-prenom').val();
+                    var champDateNaissance = $('#champ-dateNaissance').val();
+                    var champAdresse = $('#champ-adresse').val();
+                    var champTel = $('#champ-tel').val();
+                    var champLogin = $('#champ-login').val();
+                    var champPassword = $('#champ-password').val();
+
+
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'inscription',
+                            nom: champNom,
+                            prenom: champPrenom,
+                            dateNaissance: champDateNaissance,
+                            adresse: champAdresse,
+                            telephone: champTel,
+                            login: champLogin,
+                            password: champPassword
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                console.log('Response', response); // LOG dans Console Javascript
+                                if (response.inscription) {
+                                    //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
+                                    // TODO: afficher les informations du client dans la notification
+                                    // Exemple: Connexion de Ada Lovelace (ID 1)
+                                    window.location = 'validerInscription.html';
+                                } else {
+                                    $('#notification').html("Erreur lors de l'inscription"); // Message pour le paragraphe de notification
+                                }
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            })
+                            .always(function () { // Fonction toujours appelée
+
+                            });
+                });
+
+                $('#bouton-retourConnexion').on('click', function () { // Fonction appelée lors du clic sur le bouton
+
+                    console.log("clic sur le bouton retour"); // LOG dans Console Javascript
+
+
+                    window.location = 'login.html';
+
+                });
+            });
+        </script>
+    </body>
+</html>
+

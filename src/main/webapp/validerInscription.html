@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>S'inscrire</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>S'inscrire</h2>
+        <br/>
+        <div>Formulaire envoyé. Consultez vos mails.</div>
+        <br/>
+        <button id="bouton-retourAccueil">Accueil</button>
+         <script>
+            $(document).ready(function () {
+                $('#bouton-retourAccueil').on('click', function () { // Fonction appelée lors du clic sur le bouton
+
+                    console.log("clic sur le bouton Accueil"); // LOG dans Console Javascript
+
+
+                    window.location = 'login.html';
+
+                });
+        </script>
+    </body>
+</html>
