@@ -5,10 +5,12 @@
  */
 package predictif.projetfrontend.web.action;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *
  * @author bbbbb
  */
-public class Action {
-    
+public abstract class Action {
+    public abstract void executer(HttpServletRequest request);
 }

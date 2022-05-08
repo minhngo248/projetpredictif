@@ -17,7 +17,7 @@ import metier.service.ServicePredictif;
  */
 public class AuthentifierClientAction extends Action {
     @Override
-    public void executer(HttpServletRequest request){
+    public void executer(HttpServletRequest request) {
         String login=request.getParameter("login");
         String password=request.getParameter("password");
         

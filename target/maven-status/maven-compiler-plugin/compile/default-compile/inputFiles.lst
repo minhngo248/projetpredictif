@@ -1,3 +1,7 @@
-D:\3IF\DASI\Projet\L3220\projetfrontend\src\main\java\predictif\projetfrontend\web\action\Action.java
-D:\3IF\DASI\Projet\L3220\projetfrontend\src\main\java\predictif\projetfrontend\web\ActionServlet.java
-D:\3IF\DASI\Projet\L3220\projetfrontend\src\main\java\predictif\projetfrontend\web\serialisation\Serialisation.java
+D:\3IF\DASI\Projet\L3220\projetpredictif\src\main\java\predictif\projetfrontend\web\action\AuthentifierClientAction.java
+D:\3IF\DASI\Projet\L3220\projetpredictif\src\main\java\predictif\projetfrontend\web\action\InscrireClientAction.java
+D:\3IF\DASI\Projet\L3220\projetpredictif\src\main\java\predictif\projetfrontend\web\action\Action.java
+D:\3IF\DASI\Projet\L3220\projetpredictif\src\main\java\predictif\projetfrontend\web\ActionServlet.java
+D:\3IF\DASI\Projet\L3220\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\AuthentifierClientSerialisation.java
+D:\3IF\DASI\Projet\L3220\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\InscrireClientSerialisation.java
+D:\3IF\DASI\Projet\L3220\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\Serialisation.java

@@ -69,7 +69,7 @@
                     })
                             .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
                                 console.log('Response', response); // LOG dans Console Javascript
-                                if (response.inscription) {
+                                if (response.client !== null) {
                                     //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
                                     // TODO: afficher les informations du client dans la notification
                                     // Exemple: Connexion de Ada Lovelace (ID 1)
