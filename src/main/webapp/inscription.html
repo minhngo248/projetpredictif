@@ -5,33 +5,67 @@
         <title>Connexion</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <style>
+            h1 {text-align: center; color:grey; border-bottom: 2px dashed grey;}
+            h2{text-align: center; font-variant: small-caps;}
+            table.formulaire-connexion{margin: 10px auto;padding: 10px;border-radius: 10px; border: 2px grey;}
+            button.bouton-connexion{padding: 3px 10px; border-radius: 5px; border-width: 3px; cursor:pointer;}
+            .centrer{align:center;}
+        </style>
     </head>
     <body>
 
         <h1>Inscription</h1>
 
         <!-- Paragraphe avec id="notification" pour les messages de notification -->
-        <p id="notification">S'inscrire.</p>
-
+        <p id="notification">Veuillez saisir vos informations personnelles ci-dessous.</p>
+        
         <!-- Champs et Bouton de Formulaire -->
-        Nom: <input type="text" id="champ-nom" size="80" />
-        <br/>
-        Prénom: <input type="text" id="champ-prenom" />
-        <br/>
-        Date de naissance: <input type="text" id="champ-dateNaissance" />
-        <br/>
-        Adresse postale: <input type="text" id="champ-adresse" />
-        <br/>
-        Téléphone portable: <input type="text" id="champ-tel" />
-        <br/>
-        Mail: <input type="text" id="champ-login" />
-        <br/>
-        Mot de passe: <input type="password" id="champ-password" />
-        <br/>
-        Confirmation mot de passe:  <input type="password" id="champ-confirmPassword" />
-        <br/>
-        <button id="bouton-retourConnexion">Retour</button>
-        <button id="bouton-inscription">Valider</button>
+        <table class="formulaire-inscription">
+            <tr>
+                <th><label for="champ-nom">Nom: </label></th>
+                <td><input type="text" id="champ-nom" size="80" /></td>
+            </tr>
+            <tr>
+                <th><label for="champ-nom">Prénom: </label></th>
+                <td><input type="text" id="champ-prenom" size="80" /></td>
+            </tr>
+            <tr>
+                <th><label for="champ-dateNaissance">Date de naissance: </label></th>
+                <td><input type="date" id="champ-dateNaissance" size="80" /></td>
+            </tr>
+            <tr>
+                <th><label for="champ-adresse">Adresse postale: </label></th>
+                <td><input type="text" id="champ-adresse" size="80" /></td>
+            </tr>
+            <tr>
+                <th><label for="champ-tel">Téléphone portable: </label></th>
+                <td><input type="text" id="champ-tel" size="80" /></td>
+            </tr>
+            <tr>
+                <th><label for="champ-login">Adresse mail: </label></th>
+                <td><input type="text" id="champ-login" size="80" /></td>
+            </tr>
+            <tr>
+                <th><label for="champ-password">Mot de passe: </label></th>
+                <td><input type="password" id="champ-password" size="80" /></td>
+            </tr>
+            <tr>
+                <th><label for="champ-confirmPassword">Confirmation mot de passe: </label></th>
+                <td><input type="password" id="champ-confirmPassword" size="80" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centrer">
+                    <button id="bouton-inscription">Valider</button>
+                </td>
+                
+            </tr>
+            <tr>
+                <td colspan="2" class="centrer">
+                    <button id="bouton-retourConnexion">Retour</button>
+                </td>
+            </tr>
+        </table>
 
         <script>
             $(document).ready(function () {
