@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import metier.modele.Client;
 
 /**
  *
@@ -29,20 +28,11 @@ public class AuthentifierClientSerialisation extends Serialisation {
         
         //Ajouter des propriétés au objet jsonClient
         if (client != null) {
-            jsonClient.addProperty("connexion", Boolean.TRUE);
-            jsonClientProp.addProperty("id", request.getAttribute("id").toString());
-            jsonClientProp.addProperty("nom", request.getAttribute("nom").toString());
-            jsonClientProp.addProperty("prenom", request.getAttribute("prenom").toString());
-            jsonClientProp.addProperty("login", request.getAttribute("login").toString());
+            jsonClientProp.addProperty("idClient", request.getAttribute("idClient").toString());
             jsonClient.add("client", jsonClientProp);
-        } else {
-            jsonClient.addProperty("connexion", Boolean.FALSE);
         }
         
-        
-        
         //Formattage de la structure de données Json
-        response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = this.getWriter(response);
       
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();

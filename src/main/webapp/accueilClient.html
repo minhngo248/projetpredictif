@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bienvenue sur Predict'if</title>
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+    <body>
+        <h1>Bonjour <span class="prenom"></span></h1>
+        <a href="choixMedium.html">Choisir un médium</a>
+        <a href="login.html">Déconnexion</a>
+        
+        <div id="first_div">
+        <h2>Votre profil</h2>
+        <span id="nom"></span> <span class="prenom"></span><br/>
+        né(e) le <span id="dob"></span> <br/>
+        <br/>
+        Adresse : <span id="adresse"></span> <br/>
+        <br/>
+        Téléphone : <span id="tel"></span> <br/>
+        <br/>
+        Mail : <span id="mail"></span> <br/>
+        <button>Modifier votre mot de passe</button>
+        </div>
+        
+        <div id="second_div">
+        <h2>Votre profil astral</h2>        
+        Animal totem : <span id="totem"></span> <br/>
+        <br/>
+        Signe zodiaque : <span id="zodiaque"></span> <br/>
+        <br/>
+        Signe chinois : <span id="chinois"></span> <br/>
+        <br/>
+        Couleur : <span id="couleur"></span> 
+        </div>
+
+        <div id="third_div">
+        <h2>Historique</h2>
+        <table id="historique">
+        <tr>
+            <th>Date - Heure</th>
+            <th>Médium</th>
+        </tr>
+        </table>
+        </div>
+        
+        <script type="text/javascript">
+            function initPages() {
+                var idClient = parseInt(window.location.search.substring(10));
+                // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'consulter-detail-client',
+                        idClient: idClient
+                    },
+                    dataType: 'json'
+                })
+                .done( function(response) {
+                    if (response.session) {
+                        $('#nom').html(response.client.nom);
+                        $('.prenom').html(response.client.prenom);
+                        $('#dob').html(response.client.dob);
+                        $('#adresse').html(response.client.adresse);
+                        $('#tel').html(response.client.tel);
+                        $('#mail').html(response.client.mail);
+
+                        $('#totem').html(response.profil.totem);
+                        $('#zodiaque').html(response.profil.zodiaque);
+                        $('#chinois').html(response.profil.chinois);
+                        $('#couleur').html(response.profil.couleur);
+                        
+                        //var listeRdv = reponse.listeRdv;
+                        /*$.each(listeRdv, function(rdv) {
+                            $('#historique').append("<tr><td>" + 
+                                                    rdv.date + "</td><td>" + rdv.medium + "</td></tr>");
+                        }); */
+                    }
+                })
+                .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error',error); // LOG dans Console Javascript
+                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                });
+            }
+            
+            $(document).ready(function() {
+                initPages();
+            });
+        </script>
+    </body>
+</html>

@@ -18,21 +18,17 @@ import metier.service.ServicePredictif;
 public class AuthentifierClientAction extends Action {
     @Override
     public void executer(HttpServletRequest request) {
-        String login=request.getParameter("login");
-        String password=request.getParameter("password");
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
         
         ServicePredictif service=new ServicePredictif();
         
-        Client client=service.authentifierClient(login, password);
+        Client client = service.authentifierClient(login, password);
         
         request.setAttribute("client", client);
         if (client != null) {
-            request.setAttribute("id", client.getId());
-            request.setAttribute("nom", client.getNom());
-            request.setAttribute("prenom", client.getPrenom());
-            request.setAttribute("login", login);
-        }
-        
+            request.setAttribute("idClient", client.getId());
+        }    
     }
 }
 

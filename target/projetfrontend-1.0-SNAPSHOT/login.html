@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Connexion</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body>
 
@@ -23,7 +23,7 @@
         <!-- Lien vers l'accueil -->
         <p><a href="inscription.html">Pas encore de compte? Inscrivez-vous en 2 minutes !</a></p>
 
-        <script>
+        <script type="text/javascript">
             $(document).ready( function () {
                 $('#bouton-connexion').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
 
@@ -46,14 +46,15 @@
                         dataType: 'json'
                     })
                     .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                        
+                        var client = response.client;
                         console.log('Response',response); // LOG dans Console Javascript
-                        if (response.connexion) {
+                        if (client !== null) {
                             //$('#notification').html("Connexion de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
                             // TODO: afficher les informations du client dans la notification
                             // Exemple: Connexion de Ada Lovelace (ID 1)
-                           
-                            window.location='profilClient.html';
+                            
+                            var idClient = response.client.idClient;
+                            window.location = "accueilClient.html?idClient=" + idClient;
                         }
                         else {
                             $('#notification').html("Erreur de Connexion"); // Message pour le paragraphe de notification
