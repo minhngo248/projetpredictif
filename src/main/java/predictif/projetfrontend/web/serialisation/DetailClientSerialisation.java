@@ -64,15 +64,15 @@ public class DetailClientSerialisation extends Serialisation {
             jsonProfil.addProperty("couleur", request.getAttribute("couleur").toString());
             jsonClient.add("profil", jsonProfil);
 
-            /*Object listeRdv1 = request.getAttribute("listeRdv");
-            List<Rdv> listeRdv = (List<Rdv>) convertObjectToList(listeRdv1);
+
+            List<Rdv> listeRdv = (List<Rdv>)request.getAttribute("listeRdv");
             for (Rdv rdv:listeRdv) {
                 JsonObject jsonRdv = new JsonObject();
                 jsonRdv.addProperty("date", rdv.getDateHeureDebut().toString());
                 jsonRdv.addProperty("medium", rdv.getMedium().toString());
                 jsonListeRdv.add(jsonRdv);
             }
-            jsonClient.add("listeRdv", jsonListeRdv);*/
+            jsonClient.add("listeRdv", jsonListeRdv);
         }
         else {
             jsonClient.addProperty("session", Boolean.FALSE);

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Choisir son médium</title>
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <style>
+            .boutonmenuprincipal {
+                background-color: grey;
+                color: white;
+                border: none;
+                content:"▼";
+                padding:10px;
+                margin-top:20px;
+                font-size: 10px;
+            }
+            .boutonmenuprincipal:hover {
+                background-color: #ff4444;
+            }
+            .menuderoulant {
+                position: relative;
+                display: block;
+                box-shadow: 0px 1px 2px #CCC;
+                background-color: white;
+            }
+            .menuderoulant-child {
+                display: none;
+                box-shadow: 0px 1px 2px #CCC;
+                background-color: white;
+
+                position: absolute;
+                width: 100%;
+                z-index:1000;
+            }
+            .menuderoulant-child a {
+                color: white;
+                padding: 20px;
+                text-decoration: none;
+                display: block;
+            }
+            .menuderoulant:hover .menuderoulant-child {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Choisir un médium <span class="prenom"></span></h1>
+        <a href="#">Trouver un médium</a>
+        <a href="accueilClient.html">Profil</a>
+        <a href="loginClient.html">Déconnexion</a>
+
+        <div class="menuderoulant">
+            Trier par:
+            <button class="boutonmenuprincipal">l</button>
+        </div>
+        <div class="menuderoulant-child">
+            <a href="#">Profession</a>
+            <a href="#">Alphabétique</a>
+        </div>
+
+        <div>
+            <fieldset>
+                <legend>Professions à afficher</legend>
+                <div>
+                    <input type="checkbox" id="cartomancien" name="cartomancien">
+                    <label for="cartomancien">Cartomancien</label>
+
+                    <input type="checkbox" id="spirites" name="spirites">
+                    <label for="spirites">Spirites</label>
+
+                    <input type="checkbox" id="astrologues" name="astrologues">
+                    <label for="astrologues">Astrologues</label>
+                </div>
+            </fieldset>
+        </div>
+        <div id="second_div">
+            <h2>Médium disponible</h2>        
+            <span id="denomination"></span> <br/>
+            <br/>
+            <span id="presentation"></span> <br/>
+            <br/>
+            <button id="button-obtenirConsultations">Obtenir une consultation</button>
+        </div>
+
+        <script type="text/javascript">
+            function initPages() {
+                var idMedium = parseInt(window.location.search.substring(10));
+                // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'consulter-liste-medium',
+                        idMedium: idMedium
+                    },
+                    dataType: 'json'
+                })
+                        .done(function (response) {
+                            if (response.session) {
+                                $('#denomination').html(response.medium.denomination);
+                                $('#presentation').html(response.client.dob);
+
+                                var listeMedium = reponse.listeMedium;
+                                $.each(listeMedium, function (medium) {
+                                    $('#historique').append("<tr><td>" +
+                                            rdv.date + "</td><td>" + rdv.medium + "</td></tr>");
+                                });
+                            }
+                        })
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                        });
+            }
+
+            $(document).ready(function () {
+                initPages();
+            });
+        </script>
+    </body>
+</html>
+
+</body>
+</html>

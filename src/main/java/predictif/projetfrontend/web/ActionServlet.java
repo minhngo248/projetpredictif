@@ -5,6 +5,12 @@
  */
 package predictif.projetfrontend.web;
 
+import predictif.projetfrontend.web.serialisation.ModifierMdpEmployeSerialisation;
+import predictif.projetfrontend.web.action.ModifierMdpEmployeAction;
+import predictif.projetfrontend.web.serialisation.ModifierMdpClientSerialisation;
+import predictif.projetfrontend.web.action.ModifierMdpClientAction;
+import predictif.projetfrontend.web.serialisation.DetailEmployeSerialisation;
+import predictif.projetfrontend.web.action.DetailEmployeAction;
 import dao.JpaUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -14,9 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import predictif.projetfrontend.web.action.Action;
 import predictif.projetfrontend.web.action.AuthentifierClientAction;
+import predictif.projetfrontend.web.action.AuthentifierEmployeAction;
 import predictif.projetfrontend.web.action.DetailClientAction;
 import predictif.projetfrontend.web.action.InscrireClientAction;
 import predictif.projetfrontend.web.serialisation.AuthentifierClientSerialisation;
+import predictif.projetfrontend.web.serialisation.AuthentifierEmployeSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailClientSerialisation;
 import predictif.projetfrontend.web.serialisation.InscrireClientSerialisation;
 import predictif.projetfrontend.web.serialisation.Serialisation;
@@ -63,9 +71,15 @@ public class ActionServlet extends HttpServlet {
         Serialisation serialisation = null;
 
         switch (todo) {
-            case "connecter": {
+            case "connecterClient": {
                 action = new AuthentifierClientAction();
                 serialisation = new AuthentifierClientSerialisation();
+            }
+            break;
+            
+            case "connecterEmploye": {
+                action = new AuthentifierEmployeAction();
+                serialisation = new AuthentifierEmployeSerialisation();
             }
             break;
 
@@ -78,6 +92,24 @@ public class ActionServlet extends HttpServlet {
             case "consulter-detail-client": {
                 action = new DetailClientAction();
                 serialisation = new DetailClientSerialisation();
+            }
+            break;
+            
+            case "modifier-mot-de-passe-client": {
+                action = new ModifierMdpClientAction();
+                serialisation = new ModifierMdpClientSerialisation();
+            }
+            break;
+            
+            case "consulter-detail-employe": {
+                action = new DetailEmployeAction();
+                serialisation = new DetailEmployeSerialisation();
+            }
+            break;
+            
+            case "modifier-mot-de-passe-employe": {
+                action = new ModifierMdpEmployeAction();
+                serialisation = new ModifierMdpEmployeSerialisation();
             }
             break;
         }
