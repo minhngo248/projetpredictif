@@ -22,7 +22,7 @@ public class ModifierMdpEmployeAction extends Action {
         
         ServicePredictif service=new ServicePredictif();
         
-        Long idEmploye = Long.parseLong(request.getParameter("idEmploye"));
+        Long idEmploye = (Long)(request.getSession().getAttribute("idEmploye"));
       
         Employe employe  = service.rechercherEmploye(idEmploye);
         Employe resultat=service.changerMdp(employe, password);

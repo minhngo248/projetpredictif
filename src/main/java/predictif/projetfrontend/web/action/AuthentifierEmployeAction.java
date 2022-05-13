@@ -27,7 +27,7 @@ public class AuthentifierEmployeAction extends Action {
         
         request.setAttribute("employe", employe);
         if (employe != null) {
-            request.setAttribute("idEmploye", employe.getId());
+            request.getSession().setAttribute("idEmploye", employe.getId());
         }    
     }
 }

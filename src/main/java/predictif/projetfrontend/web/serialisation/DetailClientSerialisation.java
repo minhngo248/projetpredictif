@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import metier.modele.Client;
 import metier.modele.Rdv;
 
 /**
@@ -26,15 +28,7 @@ import metier.modele.Rdv;
  */
 public class DetailClientSerialisation extends Serialisation {
 
-    public static List<?> convertObjectToList(Object obj) {
-        List<?> list = new ArrayList<>();
-        if (obj.getClass().isArray()) {
-            list = Arrays.asList((Object[]) obj);
-        } else if (obj instanceof Collection) {
-            list = new ArrayList<>((Collection<?>) obj);
-        }
-        return list;
-    }
+    
 
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -42,34 +36,36 @@ public class DetailClientSerialisation extends Serialisation {
         JsonObject jsonClientProp = new JsonObject();
 
         //Lecture des Attributs de la requête (stockés par Action)
-        Object client = request.getAttribute("client");
+        Client client = (Client) request.getAttribute("client");
 
         JsonArray jsonListeRdv = new JsonArray();
 
         //Ajouter des propriétés au objet jsonClient
         if (client != null) {
             jsonClient.addProperty("session", Boolean.TRUE);
-            jsonClientProp.addProperty("nom", request.getAttribute("nom").toString());
-            jsonClientProp.addProperty("prenom", request.getAttribute("prenom").toString());
-            jsonClientProp.addProperty("dob", request.getAttribute("dob").toString());
-            jsonClientProp.addProperty("adresse", request.getAttribute("adresse").toString());
-            jsonClientProp.addProperty("tel", request.getAttribute("tel").toString());
-            jsonClientProp.addProperty("mail", request.getAttribute("mail").toString());
+            jsonClientProp.addProperty("nom", client.getNom());
+//            jsonClientProp.addProperty("prenom", request.getAttribute("prenom").toString());
+//            jsonClientProp.addProperty("dob", request.getAttribute("dob").toString());
+//            jsonClientProp.addProperty("adresse", request.getAttribute("adresse").toString());
+//            jsonClientProp.addProperty("tel", request.getAttribute("tel").toString());
+//            jsonClientProp.addProperty("mail", request.getAttribute("mail").toString());
             jsonClient.add("client", jsonClientProp);
 
             JsonObject jsonProfil = new JsonObject();
-            jsonProfil.addProperty("totem", request.getAttribute("totem").toString());
-            jsonProfil.addProperty("zodiaque", request.getAttribute("zodiaque").toString());
-            jsonProfil.addProperty("chinois", request.getAttribute("chinois").toString());
-            jsonProfil.addProperty("couleur", request.getAttribute("couleur").toString());
+            jsonProfil.addProperty("totem", client.getProfil().getAnimalTotem());
+//            jsonProfil.addProperty("zodiaque", request.getAttribute("zodiaque").toString());
+//            jsonProfil.addProperty("chinois", request.getAttribute("chinois").toString());
+//            jsonProfil.addProperty("couleur", request.getAttribute("couleur").toString());
             jsonClient.add("profil", jsonProfil);
 
 
-            List<Rdv> listeRdv = (List<Rdv>)request.getAttribute("listeRdv");
-            for (Rdv rdv:listeRdv) {
+         
+            for (Rdv rdv:client.getListeRdv()) {
+                System.out.println(rdv);
                 JsonObject jsonRdv = new JsonObject();
-                jsonRdv.addProperty("date", rdv.getDateHeureDebut().toString());
-                jsonRdv.addProperty("medium", rdv.getMedium().toString());
+                SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+                jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
+                jsonRdv.addProperty("medium", rdv.getMedium().getDenomination());
                 jsonListeRdv.add(jsonRdv);
             }
             jsonClient.add("listeRdv", jsonListeRdv);

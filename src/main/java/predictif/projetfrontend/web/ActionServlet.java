@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import predictif.projetfrontend.web.action.Action;
 import predictif.projetfrontend.web.action.AuthentifierClientAction;
 import predictif.projetfrontend.web.action.AuthentifierEmployeAction;
@@ -64,7 +65,7 @@ public class ActionServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession(true);
+        HttpSession s = request.getSession(true);
 
         String todo = request.getParameter("todo");
         Action action = null;
@@ -112,6 +113,8 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new ModifierMdpEmployeSerialisation();
             }
             break;
+            
+            
         }
 
         if (action != null && serialisation != null) {

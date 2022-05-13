@@ -1,3 +1,4 @@
+predictif\projetfrontend\web\action\ModifierMdpEmployeAction.class
 predictif\projetfrontend\web\action\AuthentifierClientAction.class
 predictif\projetfrontend\web\serialisation\Serialisation.class
 predictif\projetfrontend\web\action\AuthentifierEmployeAction.class
@@ -9,6 +10,7 @@ predictif\projetfrontend\web\ActionServlet.class
 predictif\projetfrontend\web\action\Action.class
 predictif\projetfrontend\web\action\DetailEmployeAction.class
 predictif\projetfrontend\web\action\ModifierMdpClientAction.class
+predictif\projetfrontend\web\serialisation\ModifierMdpEmployeSerialisation.class
 predictif\projetfrontend\web\serialisation\ModifierMdpClientSerialisation.class
 predictif\projetfrontend\web\action\InscrireClientAction.class
 predictif\projetfrontend\web\action\DetailClientAction.class

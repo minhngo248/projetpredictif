@@ -24,10 +24,11 @@ public class AuthentifierClientAction extends Action {
         ServicePredictif service=new ServicePredictif();
         
         Client client = service.authentifierClient(login, password);
-        
-        request.setAttribute("client", client);
+         request.setAttribute("client", client);
+
         if (client != null) {
-            request.setAttribute("idClient", client.getId());
+            request.getSession().setAttribute("idClient", client.getId());
+
         }    
     }
 }

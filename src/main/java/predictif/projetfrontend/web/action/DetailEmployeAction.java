@@ -17,7 +17,7 @@ public class DetailEmployeAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        Long idEmploye = Long.parseLong(request.getParameter("idEmploye"));
+        Long idEmploye = (Long) request.getSession().getAttribute("idEmploye");
         ServicePredictif service = new ServicePredictif();
         Employe employe = service.rechercherEmploye(idEmploye);
         request.setAttribute("employe", employe);

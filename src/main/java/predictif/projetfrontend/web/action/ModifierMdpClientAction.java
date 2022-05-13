@@ -26,7 +26,7 @@ public class ModifierMdpClientAction extends Action {
         
         ServicePredictif service=new ServicePredictif();
         
-        Long idClient = Long.parseLong(request.getParameter("idClient"));
+        Long idClient = (Long)(request.getSession().getAttribute("idClient"));
       
         Client client = service.rechercherClient(idClient);
         Client resultat=service.changerMdp(client, password);

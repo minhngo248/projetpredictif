@@ -58,7 +58,7 @@ and open the template in the editor.
         
         <script type="text/javascript">
             function initPages() {
-                var idEmploye = parseInt(window.location.search.substring(10));
+              
                 //affichage mofidication mdp
                 d1.style.display = "block";
                 d2.style.display = "none";
@@ -68,7 +68,7 @@ and open the template in the editor.
                     method: 'POST',
                     data: {
                         todo: 'consulter-detail-employe',
-                        idEmploye: idEmploye
+                      
                     },
                     dataType: 'json'
                 })
@@ -120,9 +120,9 @@ and open the template in the editor.
                         method: 'POST',
                         data: {
                             todo: 'modifier-mot-de-passe-employe',
-                            idEmploye: idEmploye,
+                          
 
-                            password: champPassword,
+                            password: champPassword
                             
 
                         },

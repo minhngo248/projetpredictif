@@ -28,7 +28,7 @@ public class AuthentifierEmployeSerialisation extends Serialisation {
         
         //Ajouter des propriétés au objet jsonClient
         if (employe != null) {
-            jsonEmployeProp.addProperty("idEmploye", request.getAttribute("idEmploye").toString());
+            jsonEmployeProp.addProperty("idEmploye", request.getSession().getAttribute("idEmploye").toString());
             jsonEmploye.add("employe", jsonEmployeProp);
         }
         

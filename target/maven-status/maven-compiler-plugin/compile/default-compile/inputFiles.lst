@@ -6,9 +6,11 @@ H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfronte
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\action\AuthentifierEmployeAction.java
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\action\Action.java
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\AuthentifierClientSerialisation.java
+H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\ModifierMdpEmployeSerialisation.java
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\AuthentifierEmployeSerialisation.java
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\ModifierMdpClientSerialisation.java
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\action\ModifierMdpClientAction.java
+H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\action\ModifierMdpEmployeAction.java
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\ActionServlet.java
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\DetailClientSerialisation.java
 H:\3IF\DASI\projetpredictif\projetpredictif\src\main\java\predictif\projetfrontend\web\serialisation\Serialisation.java

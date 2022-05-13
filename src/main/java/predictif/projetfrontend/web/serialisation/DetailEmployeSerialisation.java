@@ -59,13 +59,14 @@ public class DetailEmployeSerialisation extends Serialisation {
            
             List<Rdv> listeRdv = (List<Rdv>) request.getAttribute("listeRdv");
             for (Rdv rdv:listeRdv) {
-                JsonObject jsonRdv = new JsonObject();
-                jsonRdv.addProperty("date", rdv.getDateHeureDebut().toString());
-                jsonRdv.addProperty("medium", rdv.getMedium().toString());
-                jsonRdv.addProperty("client", rdv.getClient().toString());
-                jsonListeRdv.add(jsonRdv);
+                //JsonObject jsonRdv = new JsonObject();
+                //jsonRdv.addProperty("date", rdv.getDateHeureDebut().toString());
+                //jsonRdv.addProperty("medium", rdv.getMedium().toString());
+                //jsonRdv.addProperty("client", rdv.getClient().toString());
+                //jsonListeRdv.add(jsonRdv);
+                System.out.println(rdv);
             }
-            jsonEmploye.add("listeRdv", jsonListeRdv);
+            //jsonEmploye.add("listeRdv", jsonListeRdv);
         }
         else {
             jsonEmploye.addProperty("session", Boolean.FALSE);

@@ -63,7 +63,7 @@ and open the template in the editor.
 
         <script type="text/javascript">
             function initPages() {
-                var idClient = parseInt(window.location.search.substring(10));
+                //var idClient = parseInt(window.location.search.substring(10));
                 //affichage mofidication mdp
                 d1.style.display = "block";
                 d2.style.display = "none";
@@ -73,8 +73,8 @@ and open the template in the editor.
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
-                        todo: 'consulter-detail-client',
-                        idClient: idClient
+                        todo: 'consulter-detail-client'
+                        
                     },
                     dataType: 'json'
                 })
@@ -93,11 +93,11 @@ and open the template in the editor.
                                 $('#chinois').html(response.profil.chinois);
                                 $('#couleur').html(response.profil.couleur);
 
-                                /* var listeRdv = reponse.listeRdv;
-                                 $.each(listeRdv, function(rdv) {
+                                 var listeRdv = response.listeRdv;
+                                 $.each(listeRdv, function(i, rdv) {
                                  $('#historique').append("<tr><td>" + 
                                  rdv.date + "</td><td>" + rdv.medium + "</td></tr>");
-                                 }); */
+                                 });
                             }
                         })
                         .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
@@ -136,7 +136,7 @@ and open the template in the editor.
                         method: 'POST',
                         data: {
                             todo: 'modifier-mot-de-passe-client',
-                            idClient: idClient,
+                            
 
                             password: champPassword,
                             
