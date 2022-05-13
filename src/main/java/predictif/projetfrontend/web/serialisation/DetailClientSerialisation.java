@@ -28,13 +28,11 @@ import metier.modele.Rdv;
  */
 public class DetailClientSerialisation extends Serialisation {
 
-    
-
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JsonObject jsonClient = new JsonObject(); //Creation un objet Json pour un client
         JsonObject jsonClientProp = new JsonObject();
-
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         //Lecture des Attributs de la requête (stockés par Action)
         Client client = (Client) request.getAttribute("client");
 
@@ -44,33 +42,31 @@ public class DetailClientSerialisation extends Serialisation {
         if (client != null) {
             jsonClient.addProperty("session", Boolean.TRUE);
             jsonClientProp.addProperty("nom", client.getNom());
-//            jsonClientProp.addProperty("prenom", request.getAttribute("prenom").toString());
-//            jsonClientProp.addProperty("dob", request.getAttribute("dob").toString());
-//            jsonClientProp.addProperty("adresse", request.getAttribute("adresse").toString());
-//            jsonClientProp.addProperty("tel", request.getAttribute("tel").toString());
-//            jsonClientProp.addProperty("mail", request.getAttribute("mail").toString());
+            jsonClientProp.addProperty("prenom", client.getPrenom());
+            jsonClientProp.addProperty("dob", sdf.format(client.getDateNaissance()));
+            jsonClientProp.addProperty("adresse", client.getAdressePostale());
+            jsonClientProp.addProperty("tel", client.getTelephone());
+            jsonClientProp.addProperty("mail", client.getMail());
             jsonClient.add("client", jsonClientProp);
 
             JsonObject jsonProfil = new JsonObject();
             jsonProfil.addProperty("totem", client.getProfil().getAnimalTotem());
-//            jsonProfil.addProperty("zodiaque", request.getAttribute("zodiaque").toString());
-//            jsonProfil.addProperty("chinois", request.getAttribute("chinois").toString());
-//            jsonProfil.addProperty("couleur", request.getAttribute("couleur").toString());
+            jsonProfil.addProperty("zodiaque", client.getProfil().getSigneZodiac());
+            jsonProfil.addProperty("chinois", client.getProfil().getSigneChinois());
+            jsonProfil.addProperty("couleur", client.getProfil().getAnimalTotem());
             jsonClient.add("profil", jsonProfil);
 
-
-         
-            for (Rdv rdv:client.getListeRdv()) {
+            List <Rdv> listeRdv=(List <Rdv>) request.getAttribute("listeRdv");
+            for (Rdv rdv : listeRdv) {
                 System.out.println(rdv);
                 JsonObject jsonRdv = new JsonObject();
-                SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+
                 jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
                 jsonRdv.addProperty("medium", rdv.getMedium().getDenomination());
                 jsonListeRdv.add(jsonRdv);
             }
             jsonClient.add("listeRdv", jsonListeRdv);
-        }
-        else {
+        } else {
             jsonClient.addProperty("session", Boolean.FALSE);
         }
 

@@ -83,8 +83,8 @@ and open the template in the editor.
                         $('#etat').html(response.employe.etat);
                      
                         
-                        var listeRdv = reponse.listeRdv;
-                        $.each(listeRdv, function(rdv) {
+                        var listeRdv = response.listeRdv;
+                        $.each(listeRdv, function(index, rdv) {
                             $('#historique').append("<tr><td>" + 
                                                     rdv.date + "</td><td>" + rdv.medium + "</td></tr>" +rdv.client + "</td></tr>");
                         }); 

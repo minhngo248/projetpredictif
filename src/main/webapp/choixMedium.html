@@ -84,7 +84,7 @@ and open the template in the editor.
         <div id="second_div">
             <h2>Médium disponible</h2>    
             <div id="listeMedium">
-                
+
 
             </div>
         </div>
@@ -103,35 +103,32 @@ and open the template in the editor.
                     dataType: 'json'
                 })
                         .done(function (response) {
-                          
+
 
 
                             var listeMedium = response.listeMed;
+
                             $.each(listeMedium, function (index, medium) {
+
                                 $('#listeMedium').append("<div>" +
-                                            medium.presentation + "     " + medium.denomination + "    " + 
-                                            "<button id=" + medium.idMedium + ">Obtenir une consultation </button>" + "</div>");
-                                });
-                            
+                                        medium.presentation + "     " + medium.denomination + "    " +
+                                        "<button id=" + medium.idMedium + ">Obtenir une consultation </button>" + "</div>");
+
+                            });
+
                         })
                         .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                             console.log('Error', error); // LOG dans Console Javascript
                             alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
                         });
             }
-            
-            function obtenir_Medium() {
-                
-            }
+
+
 
             $(document).ready(function () {
                 initPages();
-                for (var i = 0 ; i < document.getElementById("listeMedium").children.length() ; ++i) {
-                    
-                }
-                
-                
-     
+
+
             });
         </script>
     </body>
