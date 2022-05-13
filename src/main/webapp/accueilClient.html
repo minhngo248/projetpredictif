@@ -13,7 +13,7 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Bonjour <span class="prenom"></span></h1>
-        <button id="bouton-choixMedium">Choisir un médium</button>
+        <a href="choixMedium.html">Choisir un médium</a>
         <a href="loginClient.html">Déconnexion</a>
 
         <div id="first_div">
@@ -74,30 +74,30 @@ and open the template in the editor.
                     method: 'POST',
                     data: {
                         todo: 'consulter-detail-client'
-                        
+
                     },
                     dataType: 'json'
                 })
-                        .done(function (response) {
-                            if (response.session) {
+                .done(function (response) {
+                if (response.session) {
 
-                                $('#nom').html(response.client.nom);
-                                $('.prenom').html(response.client.prenom);
-                                $('#dob').html(response.client.dob);
-                                $('#adresse').html(response.client.adresse);
-                                $('#tel').html(response.client.tel);
-                                $('#mail').html(response.client.mail);
+                    $('#nom').html(response.client.nom);
+                    $('.prenom').html(response.client.prenom);
+                    $('#dob').html(response.client.dob);
+                    $('#adresse').html(response.client.adresse);
+                    $('#tel').html(response.client.tel);
+                    $('#mail').html(response.client.mail);
 
-                                $('#totem').html(response.profil.totem);
-                                $('#zodiaque').html(response.profil.zodiaque);
-                                $('#chinois').html(response.profil.chinois);
-                                $('#couleur').html(response.profil.couleur);
+                    $('#totem').html(response.profil.totem);
+                    $('#zodiaque').html(response.profil.zodiaque);
+                    $('#chinois').html(response.profil.chinois);
+                    $('#couleur').html(response.profil.couleur);
 
-                                 var listeRdv = response.listeRdv;
-                                 $.each(listeRdv, function(i, rdv) {
-                                 $('#historique').append("<tr><td>" + 
-                                 rdv.date + "</td><td>" + rdv.medium + "</td></tr>");
-                                 });
+                    var listeRdv = response.listeRdv;
+                       $.each(listeRdv, function (i, rdv) {
+                                    $('#historique').append("<tr><td>" +
+                                            rdv.date + "</td><td>" + rdv.medium + "</td></tr>");
+                                });
                             }
                         })
                         .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
@@ -108,14 +108,8 @@ and open the template in the editor.
 
             $(document).ready(function () {
                 initPages();
-                 var idClient = parseInt(window.location.search.substring(10));
-                 $('#bouton-choixMedium').on('click', function () { // Fonction appelée lors du clic sur le bouton
+                //var idClient = parseInt(window.location.search.substring(10));
 
-                    console.log("clic sur le boutonchoisir son médium"); // LOG dans Console Javascript
-                   // $('#notification').html("Modification de mot de passe en cours..."); // Message pour le paragraphe de notification
-
-                    window.location= "choixMedium.html?idClient=" + idClient;
-                });
                 $('#bouton-modifierMotDePasse').on('click', function () { // Fonction appelée lors du clic sur le bouton
 
                     console.log("clic sur le bouton modification de mot de passe"); // LOG dans Console Javascript
@@ -129,24 +123,22 @@ and open the template in the editor.
                 $('#bouton-validerMotDePasse').on('click', function () {
                     // Récupération de la valeur des champs du formulaire
                     var champPassword = $('#champ-password').val();
-                   
+
                     // Appel AJAX
                     $.ajax({
                         url: './ActionServlet',
                         method: 'POST',
                         data: {
                             todo: 'modifier-mot-de-passe-client',
-                            
 
                             password: champPassword,
-                            
 
                         },
                         dataType: 'json'
                     })
                             .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
                                 console.log('Response', response); // LOG dans Console Javascript
-                                if (response.client!==null ) {
+                                if (response.client !== null) {
                                     //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
                                     // TODO: afficher les informations du client dans la notification
                                     // Exemple: Connexion de Ada Lovelace (ID 1)

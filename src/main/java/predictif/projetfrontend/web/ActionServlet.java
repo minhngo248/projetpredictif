@@ -5,6 +5,9 @@
  */
 package predictif.projetfrontend.web;
 
+import predictif.projetfrontend.web.serialisation.ObtenirConsultationSerialisation;
+import predictif.projetfrontend.web.action.ObtenirConsultationAction;
+import predictif.projetfrontend.web.serialisation.ConsulterListeMediumSerialisation;
 import predictif.projetfrontend.web.serialisation.ModifierMdpEmployeSerialisation;
 import predictif.projetfrontend.web.action.ModifierMdpEmployeAction;
 import predictif.projetfrontend.web.serialisation.ModifierMdpClientSerialisation;
@@ -22,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import predictif.projetfrontend.web.action.Action;
 import predictif.projetfrontend.web.action.AuthentifierClientAction;
 import predictif.projetfrontend.web.action.AuthentifierEmployeAction;
+import predictif.projetfrontend.web.action.ConsulterListeMediumAction;
 import predictif.projetfrontend.web.action.DetailClientAction;
 import predictif.projetfrontend.web.action.InscrireClientAction;
 import predictif.projetfrontend.web.serialisation.AuthentifierClientSerialisation;
@@ -111,6 +115,18 @@ public class ActionServlet extends HttpServlet {
             case "modifier-mot-de-passe-employe": {
                 action = new ModifierMdpEmployeAction();
                 serialisation = new ModifierMdpEmployeSerialisation();
+            }
+            break;
+            
+            case "consulter-liste-medium": {
+                action = new ConsulterListeMediumAction();
+                serialisation = new ConsulterListeMediumSerialisation();
+            }
+            break;
+            
+            case "obtenir-consultation": {
+                action = new ObtenirConsultationAction();
+                serialisation = new ObtenirConsultationSerialisation();
             }
             break;
             

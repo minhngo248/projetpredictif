@@ -20,7 +20,7 @@ public class DetailClientAction extends Action {
         Long idClient = (Long) request.getSession().getAttribute("idClient");
         ServicePredictif service = new ServicePredictif();
         Client client = service.rechercherClient(idClient);
-        System.out.println("************************** client=" + client);
+        //System.out.println("************************** client=" + client);
 
         request.setAttribute("client", client);
 //        if (client != null) {
