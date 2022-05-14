@@ -13,20 +13,20 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Bonjour <span class="prenom"></span></h1>
-        <a href="statistiques.html">Statistiques</a>
+        <a href="statsEmploye.html">Statistiques</a>
         <a href="loginEmploye.html">Déconnexion</a>
-        
+
         <div id="first_div">
-        <h2>Votre profil</h2>
-        <span id="nom"></span> <span class="prenom"></span><br/>
-        <br/>
-        Adresse : <span id="adresse"></span> <br/>
-        <br/>
-        Téléphone : <span id="tel"></span> <br/>
-        <br/>
-        Mail : <span id="mail"></span> <br/>
-        
-         <div id="d1">
+            <h2>Votre profil</h2>
+            <span id="nom"></span> <span class="prenom"></span><br/>
+            <br/>
+            Adresse : <span id="adresse"></span> <br/>
+            <br/>
+            Téléphone : <span id="tel"></span> <br/>
+            <br/>
+            Mail : <span id="mail"></span> <br/>
+
+            <div id="d1">
                 <button id="bouton-modifierMotDePasse">Modifier votre mot de passe</button>
             </div>
             <div id="d2" >
@@ -37,66 +37,89 @@ and open the template in the editor.
                 <button id="bouton-annulerMotDePasse" >Annuler</button>
             </div>
         </div>
-        
-        <div id="second_div">
-               
-        Votre état : <span id="etat"></span> <br/>
         <br/>
-        <button id="bouton-disponible">Rendre disponible</button>
         <br/>
+
+        <div class="etat_div">
+            <div id='etat_dispo'>
+                <button id='bouton-rendreIndispo'>Rendre indisponible</button>
+            </div>
+            <div id='etat_indispo'>
+                <button id='bouton-rendreDispo'>Rendre disponible</button>
+            </div>
+            <div id='etat_occupe'>
+                Vous ne pouvez pas changé votre état
+            </div>
         </div>
 
+
         <div id="third_div">
-        <h2>Historique</h2>
-        <table id="historique">
-        <tr>
-            <th>Date - Heure - Durée - Médium incarné - Client</th>
-            
-        </tr>
-        </table>
+            <h2>Historique</h2>
+            <table id="historique">
+                <tr>
+                    <th>Date - Heure - Durée - Médium incarné - Client</th>
+
+                </tr>
+            </table>
         </div>
-        
+
         <script type="text/javascript">
             function initPages() {
-              
+
                 //affichage mofidication mdp
                 d1.style.display = "block";
                 d2.style.display = "none";
+                
+                etat_dispo.style.display = "none";
+                etat_indispo.style.display = "none";
+                etat_occupe.style.display = "none";
+
                 // Appel AJAX
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
-                        todo: 'consulter-detail-employe',
-                      
+                        todo: 'consulter-detail-employe'
+
                     },
                     dataType: 'json'
                 })
-                .done( function(response) {
-                    if (response.session) {
-                        $('#nom').html(response.employe.nom);
-                        $('.prenom').html(response.employe.prenom);
-                        $('#adresse').html(response.employe.adresse);
-                        $('#tel').html(response.employe.tel);
-                        $('#mail').html(response.employe.mail);
+                        .done(function (response) {
+                            if (response.session) {
+                                $('#nom').html(response.employe.nom);
+                                $('.prenom').html(response.employe.prenom);
+                                $('#adresse').html(response.employe.adresse);
+                                $('#tel').html(response.employe.tel);
+                                $('#mail').html(response.employe.mail);
 
-                        $('#etat').html(response.employe.etat);
-                     
-                        
-                        var listeRdv = response.listeRdv;
-                        $.each(listeRdv, function(index, rdv) {
-                            $('#historique').append("<tr><td>" + 
-                                                    rdv.date + "</td><td>" + rdv.medium + "</td></tr>" +rdv.client + "</td></tr>");
-                        }); 
-                    }
-                })
-                .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                    console.log('Error',error); // LOG dans Console Javascript
-                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
-                });
+                                $('.etat_div').append("Votre état: " + response.employe.etat);
+
+                                if (response.employe.etat === "DISPONIBLE") {
+                                    etat_dispo.style.display = "block";
+                                    $('.etat_div').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'green'/></svg> <br/>");
+                                } else if (response.employe.etat === "INDISPONIBLE") {
+                                    etat_indispo.style.display = "block";
+                                    $('.etat_div').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'red'/></svg> <br/>");
+                                } else {
+                                    etat_occupe.style.display = "block";
+                                    $('.etat_div').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'orange'/></svg> <br/>");
+                                }
+
+
+                                var listeRdv = response.listeRdv;
+                                $.each(listeRdv, function (index, rdv) {
+                                    $('#historique').append("<tr><td>" +
+                                            rdv.date + "</td><td>" + rdv.medium + "</td></tr>" + rdv.client + "</td></tr>");
+                                });
+                            }
+                        })
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                        });
             }
-            
-            $(document).ready(function() {
+
+            $(document).ready(function () {
                 initPages();
                 var idEmploye = parseInt(window.location.search.substring(10));
 
@@ -113,24 +136,23 @@ and open the template in the editor.
                 $('#bouton-validerMotDePasse').on('click', function () {
                     // Récupération de la valeur des champs du formulaire
                     var champPassword = $('#champ-password').val();
-                   
+
                     // Appel AJAX
                     $.ajax({
                         url: './ActionServlet',
                         method: 'POST',
                         data: {
                             todo: 'modifier-mot-de-passe-employe',
-                          
 
                             password: champPassword
-                            
+
 
                         },
                         dataType: 'json'
                     })
                             .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
                                 console.log('Response', response); // LOG dans Console Javascript
-                                if (response.employe!==null ) {
+                                if (response.employe !== null) {
                                     //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
                                     // TODO: afficher les informations du client dans la notification
                                     // Exemple: Connexion de Ada Lovelace (ID 1)
@@ -153,6 +175,32 @@ and open the template in the editor.
                 $('#bouton-annulerMotDePasse').on('click', function () {
                     d1.style.display = "block";
                     d2.style.display = "none";
+                });
+
+                $('.etat_div').on('click', function () {
+                    // Récupération de la valeur des champs du formulaire
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'changer-etat-employe'
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                console.log('Response', response);// LOG dans Console Javascript
+                                window.location = 'accueilEmploye.html';
+
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            })
+                            .always(function () { // Fonction toujours appelée
+
+                            });
                 });
             });
         </script>

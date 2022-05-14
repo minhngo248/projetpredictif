@@ -28,15 +28,7 @@ import metier.modele.Rdv;
  */
 public class DetailEmployeSerialisation extends Serialisation {
 
-    public static List<?> convertObjectToList(Object obj) {
-        List<?> list = new ArrayList<>();
-        if (obj.getClass().isArray()) {
-            list = Arrays.asList((Object[]) obj);
-        } else if (obj instanceof Collection) {
-            list = new ArrayList<>((Collection<?>) obj);
-        }
-        return list;
-    }
+    
 
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -54,12 +46,13 @@ public class DetailEmployeSerialisation extends Serialisation {
             jsonEmployeProp.addProperty("nom", employe.getNom());
             jsonEmployeProp.addProperty("prenom", employe.getPrenom());
             jsonEmployeProp.addProperty("etat", employe.getEtat().toString());
+            
             jsonEmployeProp.addProperty("tel", employe.getTelephone());
             jsonEmployeProp.addProperty("mail", employe.getMail());
             jsonEmploye.add("employe", jsonEmployeProp);
 
-            
-            for (Rdv rdv : employe.getListeRdv()) {
+            List<Rdv> listeRdv = (List<Rdv>) request.getAttribute("listeRdv");
+            for (Rdv rdv : listeRdv) {
                 System.out.println(rdv);
 
                 JsonObject jsonRdv = new JsonObject();
