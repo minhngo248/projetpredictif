@@ -23,13 +23,11 @@ import metier.modele.Rdv;
  */
 public class DetailClientSerialisation extends Serialisation {
 
-    
-
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JsonObject jsonClient = new JsonObject(); //Creation un objet Json pour un client
         JsonObject jsonClientProp = new JsonObject();
-
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         //Lecture des Attributs de la requête (stockés par Action)
         Client client = (Client) request.getAttribute("client");
 
@@ -51,6 +49,7 @@ public class DetailClientSerialisation extends Serialisation {
             jsonProfil.addProperty("totem", client.getProfil().getAnimalTotem());
             jsonProfil.addProperty("zodiaque", client.getProfil().getSigneZodiac());
             jsonProfil.addProperty("chinois", client.getProfil().getSigneChinois());
+<<<<<<< HEAD
             jsonProfil.addProperty("couleur", client.getProfil().getCouleur());
             jsonClient.add("profil", jsonProfil);
 
@@ -60,12 +59,22 @@ public class DetailClientSerialisation extends Serialisation {
                 System.out.println(rdv);
                 JsonObject jsonRdv = new JsonObject();
                 if (rdv.getDateHeureDebut() != null) jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
+=======
+            jsonProfil.addProperty("couleur", client.getProfil().getAnimalTotem());
+            jsonClient.add("profil", jsonProfil);
+
+            List <Rdv> listeRdv=(List <Rdv>) request.getAttribute("listeRdv");
+            for (Rdv rdv : listeRdv) {
+                System.out.println(rdv);
+                JsonObject jsonRdv = new JsonObject();
+
+                jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
+>>>>>>> 4207522fd63fb47d17d115859c111d7083d2a62a
                 jsonRdv.addProperty("medium", rdv.getMedium().getDenomination());
                 jsonListeRdv.add(jsonRdv);
             }
             jsonClient.add("listeRdv", jsonListeRdv);
-        }
-        else {
+        } else {
             jsonClient.addProperty("session", Boolean.FALSE);
         }
 

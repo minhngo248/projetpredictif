@@ -5,6 +5,10 @@
  */
 package predictif.projetfrontend.web;
 
+import predictif.projetfrontend.web.serialisation.StatistiquesEmployeSerialisation;
+import predictif.projetfrontend.web.action.StatistiquesEmployeAction;
+import predictif.projetfrontend.web.serialisation.ChangerEtatEmployeSerialisation;
+import predictif.projetfrontend.web.action.ChangerEtatEmployeAction;
 import predictif.projetfrontend.web.serialisation.ObtenirConsultationSerialisation;
 import predictif.projetfrontend.web.action.ObtenirConsultationAction;
 import predictif.projetfrontend.web.serialisation.ConsulterListeMediumSerialisation;
@@ -127,6 +131,18 @@ public class ActionServlet extends HttpServlet {
             case "obtenir-consultation": {
                 action = new ObtenirConsultationAction();
                 serialisation = new ObtenirConsultationSerialisation();
+            }
+            break;
+            
+            case "changer-etat-employe": {
+                action = new ChangerEtatEmployeAction();
+                serialisation = new ChangerEtatEmployeSerialisation();
+            }
+            break;
+            
+            case "consulter-statistiques-employe": {
+                action = new StatistiquesEmployeAction();
+                serialisation = new StatistiquesEmployeSerialisation();
             }
             break;
             

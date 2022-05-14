@@ -137,9 +137,59 @@ and open the template in the editor.
         <div id="second_div">
             <h2>Médium disponible</h2>    
             <div id="listeMedium">
+<<<<<<< HEAD
             </div>
         </div>
 
+=======
+
+
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function initPages() {
+                //var idMedium = parseInt(window.location.search.substring(10));
+                // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'consulter-liste-medium'
+
+                    },
+                    dataType: 'json'
+                })
+                        .done(function (response) {
+
+
+
+                            var listeMedium = response.listeMed;
+
+                            $.each(listeMedium, function (index, medium) {
+
+                                $('#listeMedium').append("<div>" +
+                                        medium.presentation + "     " + medium.denomination + "    " +
+                                        "<button id=" + medium.idMedium + ">Obtenir une consultation </button>" + "</div>");
+
+                            });
+
+                        })
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                        });
+            }
+
+
+
+            $(document).ready(function () {
+                initPages();
+
+
+            });
+        </script>
+>>>>>>> 4207522fd63fb47d17d115859c111d7083d2a62a
     </body>
 </html>
 
