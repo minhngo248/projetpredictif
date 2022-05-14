@@ -5,10 +5,6 @@
  */
 package predictif.projetfrontend.web;
 
-import predictif.projetfrontend.web.serialisation.StatistiquesEmployeSerialisation;
-import predictif.projetfrontend.web.action.StatistiquesEmployeAction;
-import predictif.projetfrontend.web.serialisation.ChangerEtatEmployeSerialisation;
-import predictif.projetfrontend.web.action.ChangerEtatEmployeAction;
 import predictif.projetfrontend.web.serialisation.ObtenirConsultationSerialisation;
 import predictif.projetfrontend.web.action.ObtenirConsultationAction;
 import predictif.projetfrontend.web.serialisation.ConsulterListeMediumSerialisation;
@@ -32,11 +28,13 @@ import predictif.projetfrontend.web.action.AuthentifierEmployeAction;
 import predictif.projetfrontend.web.action.ConsulterListeMediumAction;
 import predictif.projetfrontend.web.action.DetailClientAction;
 import predictif.projetfrontend.web.action.InscrireClientAction;
+import predictif.projetfrontend.web.action.StatistiquesEmployeAction;
 import predictif.projetfrontend.web.serialisation.AuthentifierClientSerialisation;
 import predictif.projetfrontend.web.serialisation.AuthentifierEmployeSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailClientSerialisation;
 import predictif.projetfrontend.web.serialisation.InscrireClientSerialisation;
 import predictif.projetfrontend.web.serialisation.Serialisation;
+import predictif.projetfrontend.web.serialisation.StatistiquesEmployeSerialisation;
 
 /**
  *
@@ -134,19 +132,11 @@ public class ActionServlet extends HttpServlet {
             }
             break;
             
-            case "changer-etat-employe": {
-                action = new ChangerEtatEmployeAction();
-                serialisation = new ChangerEtatEmployeSerialisation();
-            }
-            break;
-            
             case "consulter-statistiques-employe": {
                 action = new StatistiquesEmployeAction();
                 serialisation = new StatistiquesEmployeSerialisation();
             }
             break;
-            
-            
         }
 
         if (action != null && serialisation != null) {
@@ -163,7 +153,7 @@ public class ActionServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

@@ -21,14 +21,16 @@ public class AuthentifierEmployeAction extends Action {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         
-        ServicePredictif service=new ServicePredictif();
+        ServicePredictif service = new ServicePredictif();
         
         Employe employe = service.authentifierEmploye(login, password);
         
-        request.setAttribute("employe", employe);
         if (employe != null) {
+            request.setAttribute("employe", employe);
             request.getSession().setAttribute("idEmploye", employe.getId());
-        }    
+        } else {
+            request.setAttribute("employe", null);
+        }  
     }
 }
 

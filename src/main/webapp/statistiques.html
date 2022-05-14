@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Statistiques</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Statistiques </h1>
+        <a href="accueilEmploye.html">Profil</a>
+        <a href="loginEmploye.html">Déconnexion</a>
+
+        <div id="classement_medium">
+            <h2>Classement des médiums</h2>
+            <table id="topMedium">
+                <tr>
+                    <th>Medium - Consultation du mois dernier</th>
+
+                </tr>
+            </table>
+        </div>
+        <div id="top_employe">
+            <h2>Top des employés du mois</h2>
+            <table id="topEmp">
+                <tr>
+                    <th>Employe - Nombre de consultation de ce mois </th>
+
+                </tr>
+            </table>
+        </div>
+
+        <script type="text/javascript">
+            function initPages() {
+                // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'consulter-statistiques-employe'
+
+                    },
+                    dataType: 'json'
+                })
+                        .done(function (response) {
+                            if (response.session) {
+                                var listeMediums = response.topMediums;
+                                var listeEmployes = response.topEmployes;
+                                $.each(listeMediums, function (i, medium) {
+                                    $('#topMedium').append("<tr><td>" +
+                                            medium.denomination + "</td><td>" + medium.nbConsultation + "</td></tr>");
+                                });
+
+                                $.each(listeEmployes, function (i, employe) {
+                                    $('#topEmp').append("<tr><td>" +
+                                            employe.nom + "</td><td>" + employe.nbConsultation + "</td></tr>");
+                                });
+                            }
+                        })
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                        });
+
+            }
+
+            $(document).ready(function () {
+                initPages();
+            });
+        </script>
+
+    </body>
+</html>

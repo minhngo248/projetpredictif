@@ -21,15 +21,16 @@ public class AuthentifierClientAction extends Action {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         
-        ServicePredictif service=new ServicePredictif();
+        ServicePredictif service = new ServicePredictif();
         
         Client client = service.authentifierClient(login, password);
-         request.setAttribute("client", client);
-
+        
         if (client != null) {
+            request.setAttribute("client", client);
             request.getSession().setAttribute("idClient", client.getId());
-
-        }    
+        } else {
+            request.setAttribute("client", null);
+        }
     }
 }
 

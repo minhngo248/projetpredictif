@@ -30,6 +30,8 @@ public class AuthentifierEmployeSerialisation extends Serialisation {
         if (employe != null) {
             jsonEmployeProp.addProperty("idEmploye", request.getSession().getAttribute("idEmploye").toString());
             jsonEmploye.add("employe", jsonEmployeProp);
+        } else {
+            jsonEmploye.add("employe", null);
         }
         
         //Formattage de la structure de données Json

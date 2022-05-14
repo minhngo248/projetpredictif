@@ -35,7 +35,6 @@ public class StatistiquesEmployeSerialisation extends Serialisation {
         List<Map.Entry<Employe, Long>> topEmployes = (List<Map.Entry<Employe, Long>>) request.getAttribute("topEmployes");
         
         for (Map.Entry<Medium,Long> medium:topMediums){
-            System.out.println(medium);
             JsonObject jsonMedium = new JsonObject();
             jsonMedium.addProperty("nbConsultation", medium.getValue());
             jsonMedium.addProperty("denomination", medium.getKey().getDenomination());

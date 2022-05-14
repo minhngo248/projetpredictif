@@ -32,17 +32,14 @@ public class ObtenirConsultationAction extends Action {
          
         Long idClient = (Long)request.getSession().getAttribute("idClient");
         Client client = service.rechercherClient(idClient);
-         
+        Rdv rdv = new Rdv(); 
         try {
-            Rdv rdv = service.obtenirConsultation(medium, client);
-            request.setAttribute("rdv", rdv);
+            rdv = service.obtenirConsultation(medium, client);
         } catch (NoEmployeeAvailableException ex) {
             ex.printStackTrace(System.out);
-            request.setAttribute("rdv", null);
         } catch (CustomerUnavailableException ex) {
             Logger.getLogger(ObtenirConsultationAction.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("rdv", null);
-        }       
+        }     
+        request.setAttribute("rdv", rdv);  
     }
-    
 }

@@ -29,7 +29,7 @@ public class ObtenirConsultationSerialisation extends Serialisation {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         if (rdv != null) {
             jsonProp.addProperty("idRdv", rdv.getId());
-            jsonProp.addProperty("heureDebut", sdf.format(rdv.getDateHeureDebut()));
+            jsonProp.addProperty("heureDemande", sdf.format(rdv.getDateHeureDemande()));
             jsonRdv.add("rdv", jsonProp);
         } else {
             jsonRdv.add("rdv", null);

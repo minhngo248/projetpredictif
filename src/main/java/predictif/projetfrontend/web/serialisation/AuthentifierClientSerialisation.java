@@ -30,6 +30,8 @@ public class AuthentifierClientSerialisation extends Serialisation {
         if (client != null) {
             jsonClientProp.addProperty("idClient", request.getSession().getAttribute("idClient").toString());
             jsonClient.add("client", jsonClientProp);
+        } else {
+            jsonClient.add("client", null);
         }
         
         //Formattage de la structure de données Json
