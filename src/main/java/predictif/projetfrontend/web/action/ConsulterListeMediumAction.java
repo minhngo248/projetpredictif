@@ -23,7 +23,4 @@ public class ConsulterListeMediumAction extends Action {
         List<Medium> listeMedium=service.listeMediums();
         request.setAttribute("listeMedium", listeMedium);
     }
-
-    
-    
 }

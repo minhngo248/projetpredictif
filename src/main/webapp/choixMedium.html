@@ -10,8 +10,61 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>Choisir son médium</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            function initPages() {
+            // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'consulter-liste-medium'
+                    },
+                    dataType: 'json'
+                })
+                .done(function (response) {
+                var listeMedium = response.listeMed;
+                $.each(listeMedium, function (index, medium) {
+                    $('#listeMedium').append("<div class='newDiv'><span>" +
+                            medium.presentation + "     " + medium.denomination + "</span>    " +
+                            "<button id=" + medium.idMedium + 
+                            " onClick='obtenirMedium(this.id)'>Obtenir une consultation </button>" + "</div>");
+                });
 
+            })
+            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                console.log('Error', error); // LOG dans Console Javascript
+                alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+            });
+        }
+
+        function obtenirMedium(idMedium) {
+            $.ajax({
+                url: './ActionServlet',
+                method: 'POST',
+                data: {
+                    todo: 'obtenir-consultation',
+                    idMedium: idMedium
+                },
+                dataType: 'json'
+            })
+            .done(function(response) {
+                if (response.rdv !== null) {
+                    alert("Confirmé\n    Vous recevrez bientôt un SMS.");
+                } else {
+                    alert("Ce voyant est en consultation. \n    Réesssayez plus tard !");
+                }            
+            })
+            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                console.log('Error', error); // LOG dans Console Javascript
+                alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+            });
+        }
+
+            $(document).ready(function () {
+                initPages();
+            });
+        </script>        
         <style>
             .boutonmenuprincipal {
                 background-color: grey;
@@ -52,7 +105,7 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <h1>Choisir un médium <span class="prenom"></span></h1>
+        <h1>Choisir un médium</h1>
         <a href="#">Trouver un médium</a>
         <a href="accueilClient.html">Profil</a>
         <a href="loginClient.html">Déconnexion</a>
@@ -84,56 +137,9 @@ and open the template in the editor.
         <div id="second_div">
             <h2>Médium disponible</h2>    
             <div id="listeMedium">
-                
-
             </div>
         </div>
 
-        <script type="text/javascript">
-            function initPages() {
-                //var idMedium = parseInt(window.location.search.substring(10));
-                // Appel AJAX
-                $.ajax({
-                    url: './ActionServlet',
-                    method: 'POST',
-                    data: {
-                        todo: 'consulter-liste-medium'
-
-                    },
-                    dataType: 'json'
-                })
-                        .done(function (response) {
-                          
-
-
-                            var listeMedium = response.listeMed;
-                            $.each(listeMedium, function (index, medium) {
-                                $('#listeMedium').append("<div>" +
-                                            medium.presentation + "     " + medium.denomination + "    " + 
-                                            "<button id=" + medium.idMedium + ">Obtenir une consultation </button>" + "</div>");
-                                });
-                            
-                        })
-                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                            console.log('Error', error); // LOG dans Console Javascript
-                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
-                        });
-            }
-            
-            function obtenir_Medium() {
-                
-            }
-
-            $(document).ready(function () {
-                initPages();
-                for (var i = 0 ; i < document.getElementById("listeMedium").children.length() ; ++i) {
-                    
-                }
-                
-                
-     
-            });
-        </script>
     </body>
 </html>
 

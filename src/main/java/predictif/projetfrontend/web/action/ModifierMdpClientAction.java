@@ -5,13 +5,9 @@
  */
 package predictif.projetfrontend.web.action;
 
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import metier.modele.Client;
 import metier.service.ServicePredictif;
-import predictif.projetfrontend.web.action.Action;
 
 /**
  *
@@ -29,8 +25,7 @@ public class ModifierMdpClientAction extends Action {
         Long idClient = (Long)(request.getSession().getAttribute("idClient"));
       
         Client client = service.rechercherClient(idClient);
-        Client resultat=service.changerMdp(client, password);
-        request.setAttribute("client", resultat);
+        service.changerMdp(client, password);
       
     }
     

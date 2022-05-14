@@ -25,8 +25,8 @@ public class ModifierMdpEmployeAction extends Action {
         Long idEmploye = (Long)(request.getSession().getAttribute("idEmploye"));
       
         Employe employe  = service.rechercherEmploye(idEmploye);
-        Employe resultat=service.changerMdp(employe, password);
-        request.setAttribute("employe", resultat);
+        service.changerMdp(employe, password);
+       
       
     }
     

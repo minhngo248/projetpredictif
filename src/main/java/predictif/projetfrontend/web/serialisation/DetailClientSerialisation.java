@@ -12,11 +12,6 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import metier.modele.Client;
@@ -39,32 +34,32 @@ public class DetailClientSerialisation extends Serialisation {
         Client client = (Client) request.getAttribute("client");
 
         JsonArray jsonListeRdv = new JsonArray();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         //Ajouter des propriétés au objet jsonClient
         if (client != null) {
             jsonClient.addProperty("session", Boolean.TRUE);
             jsonClientProp.addProperty("nom", client.getNom());
-//            jsonClientProp.addProperty("prenom", request.getAttribute("prenom").toString());
-//            jsonClientProp.addProperty("dob", request.getAttribute("dob").toString());
-//            jsonClientProp.addProperty("adresse", request.getAttribute("adresse").toString());
-//            jsonClientProp.addProperty("tel", request.getAttribute("tel").toString());
-//            jsonClientProp.addProperty("mail", request.getAttribute("mail").toString());
+            jsonClientProp.addProperty("prenom", client.getPrenom());
+            jsonClientProp.addProperty("dob", sdf.format(client.getDateNaissance()));
+            jsonClientProp.addProperty("adresse", client.getAdressePostale());
+            jsonClientProp.addProperty("tel", client.getTelephone());
+            jsonClientProp.addProperty("mail", client.getMail());
             jsonClient.add("client", jsonClientProp);
 
             JsonObject jsonProfil = new JsonObject();
             jsonProfil.addProperty("totem", client.getProfil().getAnimalTotem());
-//            jsonProfil.addProperty("zodiaque", request.getAttribute("zodiaque").toString());
-//            jsonProfil.addProperty("chinois", request.getAttribute("chinois").toString());
-//            jsonProfil.addProperty("couleur", request.getAttribute("couleur").toString());
+            jsonProfil.addProperty("zodiaque", client.getProfil().getSigneZodiac());
+            jsonProfil.addProperty("chinois", client.getProfil().getSigneChinois());
+            jsonProfil.addProperty("couleur", client.getProfil().getCouleur());
             jsonClient.add("profil", jsonProfil);
 
 
-         
+            client.getListeRdv().size();
             for (Rdv rdv:client.getListeRdv()) {
                 System.out.println(rdv);
                 JsonObject jsonRdv = new JsonObject();
-                SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-                jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
+                if (rdv.getDateHeureDebut() != null) jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
                 jsonRdv.addProperty("medium", rdv.getMedium().getDenomination());
                 jsonListeRdv.add(jsonRdv);
             }
@@ -77,8 +72,8 @@ public class DetailClientSerialisation extends Serialisation {
         //Formattage de la structure de données Json
         PrintWriter out = this.getWriter(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        out.println(gson.toJson(jsonClient));
-        //gson.toJson(jsonClient, out);
+        //out.println(gson.toJson(jsonClient));
+        gson.toJson(jsonClient, out);
         out.close();
     }
 }

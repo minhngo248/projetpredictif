@@ -25,21 +25,23 @@ public class ObtenirConsultationAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-         ServicePredictif service = new ServicePredictif();
+        ServicePredictif service = new ServicePredictif();
          
-         Long idMedium =Long.parseLong( request.getParameter("idMedium") );
-         Medium medium=service.rechercherMedium(idMedium);
+        Long idMedium = Long.parseLong( request.getParameter("idMedium") );
+        Medium medium = service.rechercherMedium(idMedium);
          
-         Long idClient=(Long)request.getSession().getAttribute("idClient");
-         Client client=service.rechercherClient(idClient);
+        Long idClient = (Long)request.getSession().getAttribute("idClient");
+        Client client = service.rechercherClient(idClient);
          
         try {
-            Rdv rdv=service.obtenirConsultation(medium, client);
-            request.setAttribute("rdv",rdv);
+            Rdv rdv = service.obtenirConsultation(medium, client);
+            request.setAttribute("rdv", rdv);
         } catch (NoEmployeeAvailableException ex) {
             ex.printStackTrace(System.out);
+            request.setAttribute("rdv", null);
         } catch (CustomerUnavailableException ex) {
             Logger.getLogger(ObtenirConsultationAction.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("rdv", null);
         }       
     }
     
