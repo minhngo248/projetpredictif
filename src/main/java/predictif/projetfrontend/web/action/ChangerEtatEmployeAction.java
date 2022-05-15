@@ -26,12 +26,9 @@ public class ChangerEtatEmployeAction extends Action {
 
         if (employe.getEtat() == EtatsEmploye.DISPONIBLE) {
             service.changerEtatEmploye(employe, EtatsEmploye.INDISPONIBLE);
-
-        } else {
+        } else if (employe.getEtat() == EtatsEmploye.INDISPONIBLE) {
             service.changerEtatEmploye(employe, EtatsEmploye.DISPONIBLE);
-
         }
-        //System.out.println(employe.getEtat());
 
     }
 

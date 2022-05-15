@@ -55,7 +55,7 @@ and open the template in the editor.
             <h2>Historique</h2>
             <table id="historique">
                 <tr>
-                    <th>Date - Heure</th>
+                    <th>Heure de demande</th>
                     <th>Médium</th>
                 </tr>
             </table>
@@ -96,7 +96,7 @@ and open the template in the editor.
                     var listeRdv = response.listeRdv;
                        $.each(listeRdv, function (i, rdv) {
                                     $('#historique').append("<tr><td>" +
-                                            rdv.date + "</td><td>" + rdv.medium + "</td></tr>");
+                                            rdv.dateDemande + "</td><td>" + rdv.medium + "</td></tr>");
                                 });
                             }
                         })

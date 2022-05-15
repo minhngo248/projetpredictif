@@ -23,9 +23,6 @@ import metier.modele.Rdv;
  * @author bbbbb
  */
 public class DetailClientSerialisation extends Serialisation {
-
-    
-
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JsonObject jsonClient = new JsonObject(); //Creation un objet Json pour un client
@@ -60,7 +57,7 @@ public class DetailClientSerialisation extends Serialisation {
             for (Rdv rdv:listeRdv) {
                 System.out.println(rdv);
                 JsonObject jsonRdv = new JsonObject();
-                if (rdv.getDateHeureDebut() != null) jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
+                jsonRdv.addProperty("dateDemande", sdf.format(rdv.getDateHeureDemande()));
                 jsonRdv.addProperty("medium", rdv.getMedium().getDenomination());
                 jsonListeRdv.add(jsonRdv);
             }

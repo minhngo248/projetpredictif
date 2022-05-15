@@ -20,7 +20,7 @@ public class ConsulterListeMediumAction extends Action {
     public void executer(HttpServletRequest request) {
         
         ServicePredictif service = new ServicePredictif();
-        List<Medium> listeMedium=service.listeMediums();
+        List<Medium> listeMedium = service.listeMediums();
         request.setAttribute("listeMedium", listeMedium);
     }
 }

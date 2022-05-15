@@ -35,11 +35,13 @@ public class ObtenirConsultationAction extends Action {
         Rdv rdv = new Rdv(); 
         try {
             rdv = service.obtenirConsultation(medium, client);
+            request.setAttribute("rdv", rdv);
         } catch (NoEmployeeAvailableException ex) {
             ex.printStackTrace(System.out);
+            request.setAttribute("rdv", null);
         } catch (CustomerUnavailableException ex) {
             Logger.getLogger(ObtenirConsultationAction.class.getName()).log(Level.SEVERE, null, ex);
-        }     
-        request.setAttribute("rdv", rdv);  
+            request.setAttribute("rdv", null);
+        }       
     }
 }

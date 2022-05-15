@@ -20,12 +20,9 @@ and open the template in the editor.
             <h2>Votre profil</h2>
             <span id="nom"></span> <span class="prenom"></span><br/>
             <br/>
-            Adresse : <span id="adresse"></span> <br/>
-            <br/>
             Téléphone : <span id="tel"></span> <br/>
             <br/>
             Mail : <span id="mail"></span> <br/>
-
             <div id="d1">
                 <button id="bouton-modifierMotDePasse">Modifier votre mot de passe</button>
             </div>
@@ -38,26 +35,17 @@ and open the template in the editor.
             </div>
         </div>
 
-        <div class="etat_div">
-            <div id='etat_dispo'>
-                <button id='bouton-rendreIndispo'>Rendre indisponible</button>
-            </div>
-            <div id='etat_indispo'>
-                <button id='bouton-rendreDispo'>Rendre disponible</button>
-            </div>
-            <div id='etat_occupe'>
-                Vous ne pouvez pas changé votre état.
-                <button id='bouton-consulterRdv'>Consulter votre rendez-vous</button>
-
-            </div>
+        <div id="etatEmp">
         </div>
 
         <div id="third_div">
             <h2>Historique</h2>
             <table id="historique">
                 <tr>
-                    <th>Date - Heure - Durée - Médium incarné - Client</th>
-
+                    <th>Date demande</th>
+                    <th>Médium incarné</th>
+                    <th>Client</th>
+                    <th>État</th>
                 </tr>
             </table>
         </div>
@@ -69,53 +57,90 @@ and open the template in the editor.
                 d1.style.display = "block";
                 d2.style.display = "none";
 
-                etat_dispo.style.display = "none";
-                etat_indispo.style.display = "none";
-                etat_occupe.style.display = "none";
-
                 // Appel AJAX
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
                         todo: 'consulter-detail-employe',
-
                     },
                     dataType: 'json'
                 })
-                        .done(function (response) {
-                            if (response.session) {
-                                $('#nom').html(response.employe.nom);
-                                $('.prenom').html(response.employe.prenom);
-                                $('#adresse').html(response.employe.adresse);
-                                $('#tel').html(response.employe.tel);
-                                $('#mail').html(response.employe.mail);
+                .done(function (response) {
+                    if (response.session) {
+                        $('#nom').html(response.employe.nom);
+                        $('.prenom').html(response.employe.prenom);
+                        $('#tel').html(response.employe.tel);
+                        $('#mail').html(response.employe.mail);
 
-                                $('.etat_div').append("Votre état: " + response.employe.etat);
+                        $('#etatEmp').html("<span>" + response.employe.etat + "</span>");
 
-                                if (response.employe.etat === "DISPONIBLE") {
-                                    etat_dispo.style.display = "block";
-                                    $('.etat_div').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'green'/></svg> <br/>");
-                                } else if (response.employe.etat === "INDISPONIBLE") {
-                                    etat_indispo.style.display = "block";
-                                    $('.etat_div').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'red'/></svg> <br/>");
-                                } else {
-                                    etat_occupe.style.display = "block";
-                                    $('.etat_div').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'orange'/></svg> <br/>");
-                                }
-
-
-                                var listeRdv = response.listeRdv;
-                                $.each(listeRdv, function (index, rdv) {
-                                    $('#historique').append("<tr><td>" +
-                                            rdv.date + "</td><td>" + rdv.medium + "</td></tr>" + rdv.client + "</td></tr>");
+                        if (response.employe.etat === "DISPONIBLE") {
+                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'green'/></svg> <br/>");
+                            $('#etatEmp').append("<button id='etat_dispo'>Rendre indisponible</button>");
+                            $('#etat_dispo').on('click', function () {
+                            // Récupération de la valeur des champs du formulaire
+                            // Appel AJAX
+                                $.ajax({
+                                    url: './ActionServlet',
+                                    method: 'POST',
+                                    data: {
+                                        todo: 'changer-etat-employe'
+                                    },
+                                    dataType: 'json'
+                                })
+                                .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                    console.log('Response', response);// LOG dans Console Javascript
+                                })
+                                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                    console.log('Error', error); // LOG dans Console Javascript
+                                    alert("Erreur lors de l'appel AJAX");
                                 });
-                            }
-                        })
-                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                            console.log('Error', error); // LOG dans Console Javascript
-                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                            });
+                        } else if (response.employe.etat === "INDISPONIBLE") {
+                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'red'/></svg> <br/>");
+                            $('#etatEmp').append("<button id='etat_indispo'>Rendre disponible</button>");
+                            $('#etat_indispo').on('click', function () {
+                            // Récupération de la valeur des champs du formulaire
+                            // Appel AJAX
+                                $.ajax({
+                                    url: './ActionServlet',
+                                    method: 'POST',
+                                    data: {
+                                        todo: 'changer-etat-employe'
+                                    },
+                                    dataType: 'json'
+                                })
+                                .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                    console.log('Response', response);// LOG dans Console Javascript
+                                })
+                                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                    console.log('Error', error); // LOG dans Console Javascript
+                                    alert("Erreur lors de l'appel AJAX");
+                                });
+                            });
+                        } else {
+                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'orange'/></svg> <br/>");
+                            $('#etatEmp').append("<span>Vous avez un client en attente</span>");
+                            $('#etatEmp').append("<button id='etat_occupe'>Consulter votre rendez-vous</button>");
+                            $('#etat_occupe').on('click', function () {
+                                window.location = "consultation.html";
+                            });
+                        }
+
+
+                        var listeRdv = response.listeRdv;
+                        $.each(listeRdv, function (index, rdv) {
+                            $('#historique').append("<tr><td>" +
+                                         rdv.dateDemande + "</td><td>" + rdv.medium + "</td><td>" + 
+                                         rdv.client + "</td><td>" + rdv.etat + "</td></tr>");
                         });
+                    }
+                })
+                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error', error); // LOG dans Console Javascript
+                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                });
             }
 
             $(document).ready(function () {
@@ -141,67 +166,37 @@ and open the template in the editor.
                         method: 'POST',
                         data: {
                             todo: 'modifier-mot-de-passe-employe',
-
                             password: champPassword
-
-
                         },
                         dataType: 'json'
                     })
-                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                                console.log('Response', response); // LOG dans Console Javascript
-                                if (response.employe !== null) {
-                                    //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
-                                    // TODO: afficher les informations du client dans la notification
-                                    // Exemple: Connexion de Ada Lovelace (ID 1)
-                                    $('#notification').html("Mot de passe modifié");
+                    .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                        console.log('Response', response); // LOG dans Console Javascript
+                        if (response.employe !== null) {
+                        //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
+                        // TODO: afficher les informations du client dans la notification
+                        // Exemple: Connexion de Ada Lovelace (ID 1)
+                            $('#notification').html("Mot de passe modifié");
 
-                                } else {
-                                    $('#notification').html("Erreur lors de la modification de mot de passe"); // Message pour le paragraphe de notification
-                                }
+                        } else {
+                            $('#notification').html("Erreur lors de la modification de mot de passe"); // Message pour le paragraphe de notification
+                        }
 
-                            })
-                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                                console.log('Error', error); // LOG dans Console Javascript
-                                alert("Erreur lors de l'appel AJAX");
-                            })
-                            .always(function () { // Fonction toujours appelée
-                                d1.style.display = "block";
-                                d2.style.display = "none";
-                            });
+                    })
+                    .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                        console.log('Error', error); // LOG dans Console Javascript
+                        alert("Erreur lors de l'appel AJAX");
+                    })
+                    .always(function () { // Fonction toujours appelée
+                        d1.style.display = "block";
+                        d2.style.display = "none";
+                    });
                 });
                 $('#bouton-annulerMotDePasse').on('click', function () {
                     d1.style.display = "block";
                     d2.style.display = "none";
                 });
-                $('.etat_div').on('click', function () {
-                    // Récupération de la valeur des champs du formulaire
-                    // Appel AJAX
-                    $.ajax({
-                        url: './ActionServlet',
-                        method: 'POST',
-                        data: {
-                            todo: 'changer-etat-employe'
-
-                        },
-                        dataType: 'json'
-                    })
-                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                                console.log('Response', response);// LOG dans Console Javascript
-                                window.location = 'accueilEmploye.html';
-
-                            })
-                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                                console.log('Error', error); // LOG dans Console Javascript
-                                alert("Erreur lors de l'appel AJAX");
-                            })
-                            .always(function () { // Fonction toujours appelée
-
-                            });
-                });
-                $('#bouton-consulterRdv').on('click', function () {
-                   window.location="consultation.html";
-                });
+              
             });
         </script>
     </body>

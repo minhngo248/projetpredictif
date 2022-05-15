@@ -52,9 +52,9 @@ public class DetailEmployeSerialisation extends Serialisation {
             List<Rdv> listeRdv = (List<Rdv>) request.getAttribute("listeRdv");
             for (Rdv rdv : listeRdv) {
                 JsonObject jsonRdv = new JsonObject();
-                if (rdv.getDateHeureDebut() != null) {
-                    jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
-                }
+                jsonRdv.addProperty("idRdv", rdv.getId());
+                jsonRdv.addProperty("etat", rdv.getEtat().toString());
+                jsonRdv.addProperty("dateDemande", sdf.format(rdv.getDateHeureDemande()));
                 jsonRdv.addProperty("medium", rdv.getMedium().getDenomination());
                 jsonRdv.addProperty("client", rdv.getClient().getPrenom() + " " + rdv.getClient().getNom());
                 jsonListeRdv.add(jsonRdv);

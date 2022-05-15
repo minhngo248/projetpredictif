@@ -24,8 +24,8 @@ public class DetailClientAction extends Action {
         Client client = service.rechercherClient(idClient);
         //System.out.println("************************** client=" + client);
         
-         request.setAttribute("client", client);
-         List<Rdv> listeRdv=service.getHistorique(client);
-         request.setAttribute("listeRdv", listeRdv);
+        request.setAttribute("client", client);
+        List<Rdv> listeRdv=service.getHistorique(client);
+        request.setAttribute("listeRdv", listeRdv);
     }
 }
