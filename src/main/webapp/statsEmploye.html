@@ -12,22 +12,22 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Statistiques </h1>
-        <a href="statsEmploye.html">Statistqiues</a>
+        <a href="statsEmploye.html">Statistiques</a>
         <a href="accueilEmploye.html">Profil</a>
         <a href="loginEmploye.html">Déconnexion</a>
 
-        <div id="classement_medium">
+        <div id="classement_Medium">
             <h2>Classement des médiums</h2>
-            <table id="topMedium">
+            <table id="top_Medium">
                 <tr>
                     <th>Medium - Consultation du mois dernier</th>
 
                 </tr>
             </table>
         </div>
-        <div id="top_employe">
+        <div id="classement_Employe">
             <h2>Top des employés du mois</h2>
-            <table id="topEmp">
+            <table id="top_Employe">
                 <tr>
                     <th>Employe - Nombre de consultation de ce mois </th>
 
@@ -52,12 +52,12 @@ and open the template in the editor.
                                 var listeMediums = response.topMediums;
                                 var listeEmployes = response.topEmployes;
                                 $.each(listeMediums, function (i, medium) {
-                                    $('#topMedium').append("<tr><td>" +
+                                    $('#top_Medium').append("<tr><td>" +
                                             medium.denomination + "</td><td>" + medium.nbConsultation + "</td></tr>");
                                 });
 
                                 $.each(listeEmployes, function (i, employe) {
-                                    $('#topEmp').append("<tr><td>" +
+                                    $('#top_Employe').append("<tr><td>" +
                                             employe.nom + "</td><td>" + employe.nbConsultation + "</td></tr>");
                                 });
                             }

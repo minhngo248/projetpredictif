@@ -5,8 +5,10 @@
  */
 package predictif.projetfrontend.web.action;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import metier.modele.Client;
+import metier.modele.Rdv;
 import metier.service.ServicePredictif;
 
 /**
@@ -22,7 +24,8 @@ public class DetailClientAction extends Action {
         Client client = service.rechercherClient(idClient);
         //System.out.println("************************** client=" + client);
         
-        client.getListeRdv().size();
-        request.setAttribute("client", client);
+         request.setAttribute("client", client);
+         List<Rdv> listeRdv=service.getHistorique(client);
+         request.setAttribute("listeRdv", listeRdv);
     }
 }

@@ -5,8 +5,10 @@
  */
 package predictif.projetfrontend.web.action;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import metier.modele.Employe;
+import metier.modele.Rdv;
 import metier.service.ServicePredictif;
 
 /**
@@ -21,16 +23,8 @@ public class DetailEmployeAction extends Action {
         ServicePredictif service = new ServicePredictif();
         Employe employe = service.rechercherEmploye(idEmploye);
         request.setAttribute("employe", employe);
-        if (employe != null) {
-            request.setAttribute("nom", employe.getNom());
-            request.setAttribute("prenom", employe.getPrenom());
-            
-
-            request.setAttribute("tel", employe.getTelephone());
-            request.setAttribute("mail", employe.getMail());
-            request.setAttribute("etat", employe.getEtat());
-
-            request.setAttribute("listeRdv", employe.getListeRdv());
-        }
+         List<Rdv> listeRdv=service.getHistorique(employe);
+         request.setAttribute("listeRdv", listeRdv);
+        
     }
 }

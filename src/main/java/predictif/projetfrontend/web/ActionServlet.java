@@ -25,12 +25,14 @@ import javax.servlet.http.HttpSession;
 import predictif.projetfrontend.web.action.Action;
 import predictif.projetfrontend.web.action.AuthentifierClientAction;
 import predictif.projetfrontend.web.action.AuthentifierEmployeAction;
+import predictif.projetfrontend.web.action.ChangerEtatEmployeAction;
 import predictif.projetfrontend.web.action.ConsulterListeMediumAction;
 import predictif.projetfrontend.web.action.DetailClientAction;
 import predictif.projetfrontend.web.action.InscrireClientAction;
 import predictif.projetfrontend.web.action.StatistiquesEmployeAction;
 import predictif.projetfrontend.web.serialisation.AuthentifierClientSerialisation;
 import predictif.projetfrontend.web.serialisation.AuthentifierEmployeSerialisation;
+import predictif.projetfrontend.web.serialisation.ChangerEtatEmployeSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailClientSerialisation;
 import predictif.projetfrontend.web.serialisation.InscrireClientSerialisation;
 import predictif.projetfrontend.web.serialisation.Serialisation;
@@ -60,7 +62,7 @@ public class ActionServlet extends HttpServlet {
         JpaUtil.destroy();
         super.destroy();
     }
-    
+
     /**
      *
      * @param request
@@ -83,7 +85,7 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new AuthentifierClientSerialisation();
             }
             break;
-            
+
             case "connecterEmploye": {
                 action = new AuthentifierEmployeAction();
                 serialisation = new AuthentifierEmployeSerialisation();
@@ -95,46 +97,52 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new InscrireClientSerialisation();
             }
             break;
-            
+
             case "consulter-detail-client": {
                 action = new DetailClientAction();
                 serialisation = new DetailClientSerialisation();
             }
             break;
-            
+
             case "modifier-mot-de-passe-client": {
                 action = new ModifierMdpClientAction();
                 serialisation = new ModifierMdpClientSerialisation();
             }
             break;
-            
+
             case "consulter-detail-employe": {
                 action = new DetailEmployeAction();
                 serialisation = new DetailEmployeSerialisation();
             }
             break;
-            
+
             case "modifier-mot-de-passe-employe": {
                 action = new ModifierMdpEmployeAction();
                 serialisation = new ModifierMdpEmployeSerialisation();
             }
             break;
-            
+
             case "consulter-liste-medium": {
                 action = new ConsulterListeMediumAction();
                 serialisation = new ConsulterListeMediumSerialisation();
             }
             break;
-            
+
             case "obtenir-consultation": {
                 action = new ObtenirConsultationAction();
                 serialisation = new ObtenirConsultationSerialisation();
             }
             break;
-            
+
             case "consulter-statistiques-employe": {
                 action = new StatistiquesEmployeAction();
                 serialisation = new StatistiquesEmployeSerialisation();
+            }
+            break;
+
+            case "changer-etat-employe": {
+                action = new ChangerEtatEmployeAction();
+                serialisation = new ChangerEtatEmployeSerialisation();
             }
             break;
         }

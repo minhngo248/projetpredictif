@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Consulter rendez-vous</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="profil_client">
+            <h2>Profil</h2>
+            <span id="nom"></span> <span class="prenom"></span><br/>
+            né(e) le <span id="dob"></span> <br/>
+            <br/>
+            Ville : <span id="ville"></span> <br/>
+            <br/>
+
+            <h2>Profil astral</h2>
+            Animal totem : <span id="totem"></span> <br/>
+            <br/>
+            Signe zodiaque : <span id="zodiaque"></span> <br/>
+            <br/>
+            Signe chinois : <span id="chinois"></span> <br/>
+            <br/>
+            Couleur : <span id="couleur"></span>
+
+
+        </div>
+
+
+        <div id="historique">
+            <h2>Historique du client</h2>
+            <table id="historique_client">
+                <tr>
+                    <th>Date - Médium - Commentaire</th>
+
+                </tr>
+            </table>
+        </div>
+
+        <div id="medium">
+            <h2>Médium choisi par le client</h2>
+            <span id="denomination"></span> 
+            <span id="type" ></span> <br/>
+            <br/>
+            <span id="presentation"></span> <br/>
+            <br/>
+            <br/>
+            <span id="genre"></span>
+            <br/>
+            <span id="formation"></span>
+            <span id="promotion"></span>
+            <span id="support"></span>
+        </div>
+
+        <button id="bouton-pretRdv">Prêt pour le rendez-vous</button>
+
+        <script type="text/javascript">
+            function initPages() {
+
+                // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'consulter-detail-rdv'
+
+                    },
+                    dataType: 'json'
+                })
+                        .done(function (response) {
+                            if (response.session) {
+
+                                $('#nom').html(response.client.nom);
+                                $('.prenom').html(response.client.prenom);
+                                $('#dob').html(response.client.dob);
+                                // $('#ville').html(response.client.ville);
+
+
+                                $('#totem').html(response.profil.totem);
+                                $('#zodiaque').html(response.profil.zodiaque);
+                                $('#chinois').html(response.profil.chinois);
+                                $('#couleur').html(response.profil.couleur);
+
+                                var listeRdv = response.listeRdv;
+                                $.each(listeRdv, function (i, rdv) {
+                                    $('#historique_client').append("<tr><td>" +
+                                            rdv.date + "</td><td>" + rdv.medium + "</td><td> " + rdv.commentaire + " </td></tr>");
+                                });
+                                $('#denomination').html(response.medium.denomination);
+                                $('#type').html(response.medium.type);
+                                $('#presentation').html(response.medium.presentation);
+                                $('#genre').html(response.medium.genre);
+
+                                $('#support').html(response.medium.support);
+                                $('#promotion').html(response.medium.promotion);
+                                $('#formation').html(response.medium.formation);
+
+                            }
+                        })
+
+
+
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                        });
+            }
+
+            $(document).ready(function () {
+                initPages();
+                $('#bouton-pretRdv').on('click', function () { // Fonction appelée lors du clic sur le bouton
+
+                    
+                });
+                
+            });
+        </script>
+    </body>
+</html>
+

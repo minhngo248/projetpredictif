@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import metier.modele.Client;
@@ -55,8 +56,8 @@ public class DetailClientSerialisation extends Serialisation {
             jsonClient.add("profil", jsonProfil);
 
 
-            client.getListeRdv().size();
-            for (Rdv rdv:client.getListeRdv()) {
+           List <Rdv> listeRdv=(List <Rdv>) request.getAttribute("listeRdv");
+            for (Rdv rdv:listeRdv) {
                 System.out.println(rdv);
                 JsonObject jsonRdv = new JsonObject();
                 if (rdv.getDateHeureDebut() != null) jsonRdv.addProperty("date", sdf.format(rdv.getDateHeureDebut()));
