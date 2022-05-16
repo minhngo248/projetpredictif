@@ -74,7 +74,6 @@ and open the template in the editor.
                     method: 'POST',
                     data: {
                         todo: 'consulter-detail-client'
-
                     },
                     dataType: 'json'
                 })
@@ -94,16 +93,16 @@ and open the template in the editor.
                     $('#couleur').html(response.profil.couleur);
 
                     var listeRdv = response.listeRdv;
-                       $.each(listeRdv, function (i, rdv) {
-                                    $('#historique').append("<tr><td>" +
-                                            rdv.dateDemande + "</td><td>" + rdv.medium + "</td></tr>");
-                                });
-                            }
-                        })
-                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                            console.log('Error', error); // LOG dans Console Javascript
-                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                    $.each(listeRdv, function (i, rdv) {
+                        $('#historique').append("<tr><td>" +
+                            rdv.dateDemande + "</td><td>" + rdv.medium + "</td></tr>");
                         });
+                    }
+                })
+                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error', error); // LOG dans Console Javascript
+                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                });
             }
 
             $(document).ready(function () {

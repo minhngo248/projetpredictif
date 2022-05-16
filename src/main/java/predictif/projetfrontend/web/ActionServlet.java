@@ -28,12 +28,16 @@ import predictif.projetfrontend.web.action.AuthentifierEmployeAction;
 import predictif.projetfrontend.web.action.ChangerEtatEmployeAction;
 import predictif.projetfrontend.web.action.ConsulterListeMediumAction;
 import predictif.projetfrontend.web.action.DetailClientAction;
+import predictif.projetfrontend.web.action.DetailRdvEmployeAction;
+import predictif.projetfrontend.web.action.EmployeConsulterRdvAction;
 import predictif.projetfrontend.web.action.InscrireClientAction;
 import predictif.projetfrontend.web.action.StatistiquesEmployeAction;
 import predictif.projetfrontend.web.serialisation.AuthentifierClientSerialisation;
 import predictif.projetfrontend.web.serialisation.AuthentifierEmployeSerialisation;
 import predictif.projetfrontend.web.serialisation.ChangerEtatEmployeSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailClientSerialisation;
+import predictif.projetfrontend.web.serialisation.DetailRdvEmployeSerialisation;
+import predictif.projetfrontend.web.serialisation.EmployeConsulterRdvSerialisation;
 import predictif.projetfrontend.web.serialisation.InscrireClientSerialisation;
 import predictif.projetfrontend.web.serialisation.Serialisation;
 import predictif.projetfrontend.web.serialisation.StatistiquesEmployeSerialisation;
@@ -143,6 +147,18 @@ public class ActionServlet extends HttpServlet {
             case "changer-etat-employe": {
                 action = new ChangerEtatEmployeAction();
                 serialisation = new ChangerEtatEmployeSerialisation();
+            }
+            break;
+            
+            case "employe-consulter-rdv": {
+                action = new EmployeConsulterRdvAction();
+                serialisation = new EmployeConsulterRdvSerialisation();
+            }
+            break;
+            
+            case "consulter-detail-rdv": {
+                action = new DetailRdvEmployeAction();
+                serialisation = new DetailRdvEmployeSerialisation();
             }
             break;
         }

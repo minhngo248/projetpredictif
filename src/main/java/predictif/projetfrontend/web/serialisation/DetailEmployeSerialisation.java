@@ -12,10 +12,6 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +38,7 @@ public class DetailEmployeSerialisation extends Serialisation {
         //Ajouter des propriétés au objet jsonClient
         if (employe != null) {
             jsonEmploye.addProperty("session", Boolean.TRUE);
+            jsonEmployeProp.addProperty("idEmp", employe.getId());
             jsonEmployeProp.addProperty("nom", employe.getNom());
             jsonEmployeProp.addProperty("prenom", employe.getPrenom());
             jsonEmployeProp.addProperty("etat", employe.getEtat().toString());

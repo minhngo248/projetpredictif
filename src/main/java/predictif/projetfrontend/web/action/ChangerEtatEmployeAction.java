@@ -19,7 +19,7 @@ public class ChangerEtatEmployeAction extends Action {
     @Override
     public void executer(HttpServletRequest request) {
 
-        Long idEmploye = (Long) request.getSession().getAttribute("idEmploye");
+        Long idEmploye = Long.parseLong(request.getParameter("idEmp"));
         ServicePredictif service = new ServicePredictif();
         Employe employe = service.rechercherEmploye(idEmploye);
         //System.out.println(employe);
@@ -29,7 +29,8 @@ public class ChangerEtatEmployeAction extends Action {
         } else if (employe.getEtat() == EtatsEmploye.INDISPONIBLE) {
             service.changerEtatEmploye(employe, EtatsEmploye.DISPONIBLE);
         }
-
+        employe.getListeRdv().size();
+        request.setAttribute("employe", employe);
     }
 
 }

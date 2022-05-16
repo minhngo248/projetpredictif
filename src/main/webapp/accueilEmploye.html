@@ -67,74 +67,74 @@ and open the template in the editor.
                     dataType: 'json'
                 })
                 .done(function (response) {
+                    var idEmploye = response.employe.idEmp;
                     if (response.session) {
                         $('#nom').html(response.employe.nom);
                         $('.prenom').html(response.employe.prenom);
                         $('#tel').html(response.employe.tel);
                         $('#mail').html(response.employe.mail);
 
-                        $('#etatEmp').html("<span>" + response.employe.etat + "</span>");
-
-                        if (response.employe.etat === "DISPONIBLE") {
-                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'green'/></svg> <br/>");
-                            $('#etatEmp').append("<button id='etat_dispo'>Rendre indisponible</button>");
-                            $('#etat_dispo').on('click', function () {
-                            // Récupération de la valeur des champs du formulaire
-                            // Appel AJAX
-                                $.ajax({
-                                    url: './ActionServlet',
-                                    method: 'POST',
-                                    data: {
-                                        todo: 'changer-etat-employe'
-                                    },
-                                    dataType: 'json'
-                                })
-                                .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                                    console.log('Response', response);// LOG dans Console Javascript
-                                })
-                                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                                    console.log('Error', error); // LOG dans Console Javascript
-                                    alert("Erreur lors de l'appel AJAX");
-                                });
-                            });
-                        } else if (response.employe.etat === "INDISPONIBLE") {
-                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'red'/></svg> <br/>");
-                            $('#etatEmp').append("<button id='etat_indispo'>Rendre disponible</button>");
-                            $('#etat_indispo').on('click', function () {
-                            // Récupération de la valeur des champs du formulaire
-                            // Appel AJAX
-                                $.ajax({
-                                    url: './ActionServlet',
-                                    method: 'POST',
-                                    data: {
-                                        todo: 'changer-etat-employe'
-                                    },
-                                    dataType: 'json'
-                                })
-                                .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                                    console.log('Response', response);// LOG dans Console Javascript
-                                })
-                                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                                    console.log('Error', error); // LOG dans Console Javascript
-                                    alert("Erreur lors de l'appel AJAX");
-                                });
-                            });
-                        } else {
-                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'orange'/></svg> <br/>");
-                            $('#etatEmp').append("<span>Vous avez un client en attente</span>");
-                            $('#etatEmp').append("<button id='etat_occupe'>Consulter votre rendez-vous</button>");
-                            $('#etat_occupe').on('click', function () {
-                                window.location = "consultation.html";
-                            });
-                        }
-
-
+                        $('#etatEmp').append("<span>" + response.employe.etat + "</span>");
+                        
                         var listeRdv = response.listeRdv;
                         $.each(listeRdv, function (index, rdv) {
                             $('#historique').append("<tr><td>" +
                                          rdv.dateDemande + "</td><td>" + rdv.medium + "</td><td>" + 
                                          rdv.client + "</td><td>" + rdv.etat + "</td></tr>");
                         });
+                        
+                        if (response.employe.etat === "DISPONIBLE") {
+                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'green'/></svg> <br/>");
+                            $('#etatEmp').append("<button type='button' id='bouton-etat'>Rendre indisponible</button>");
+                        } else if (response.employe.etat === "INDISPONIBLE") {
+                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'red'/></svg> <br/>");
+                            $('#etatEmp').append("<button type='button' id='bouton-etat'>Rendre disponible</button>");
+                        } else {
+                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'orange'/></svg> <br/>");
+                            $('#etatEmp').append("<span>Vous avez un client en attente</span><br/>");
+                            $('#etatEmp').append("<button type='button' id='etat_occupe'>Consulter votre rendez-vous</button>");
+                        }
+                        
+                        $('#bouton-etat').on('click', function () {
+                            $.ajax({
+                                url: './ActionServlet',
+                                method: 'POST',
+                                data: {
+                                    todo: 'changer-etat-employe',
+                                    idEmp: idEmploye
+                                },
+                                dataType: 'json'
+                            })
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                console.log('Response', response);// LOG dans Console Javascript
+                                location.reload(true);                                  
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            });
+                        });
+                        
+                        $('#etat_occupe').on('click', function () {
+                            $.ajax({
+                                url: './ActionServlet',
+                                method: 'POST',
+                                data: {
+                                    todo: 'employe-consulter-rdv',
+                                    idEmp: idEmploye
+                                },
+                                dataType: 'json'
+                            })
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                console.log('Response', response);// LOG dans Console Javascript
+                                window.location = "consultation.html";
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            }); 
+                        });
+                        
                     }
                 })
                 .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX

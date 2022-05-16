@@ -7,11 +7,16 @@ package predictif.projetfrontend.web.serialisation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import metier.modele.Employe;
+import metier.modele.Rdv;
 
 /**
  *
@@ -19,16 +24,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChangerEtatEmployeSerialisation extends Serialisation {
 
-     @Override 
-    public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        JsonObject container=new JsonObject();
-       
-        PrintWriter out=this.getWriter(response);
-        Gson gson=new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container,out);
+    @Override
+    public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        JsonObject jsonEmploye = new JsonObject(); //Creation un objet Json pour un client
+
+        PrintWriter out = this.getWriter(response);
+        Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+        out.println(gson.toJson(jsonEmploye));
+        //gson.toJson(jsonClient, out);
         out.close();
     }
-
-   
-    
 }
