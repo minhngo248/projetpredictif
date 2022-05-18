@@ -57,8 +57,7 @@ public class StatistiquesEmployeSerialisation extends Serialisation {
 
         PrintWriter out = this.getWriter(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        out.println(gson.toJson(container));
-        //gson.toJson(container, out);
+        gson.toJson(container, out);
         out.close();
     }
 

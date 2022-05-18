@@ -19,21 +19,19 @@ and open the template in the editor.
 
         <div id="classement_Medium">
             <h2>Classement des médiums</h2>
-            <table id="topMedium">
+            <table id="top_Medium">
                 <tr>
-                    <th>Medium </th>
+                    <th>Medium</th>
                     <th>Consultation du mois dernier</th>
-
                 </tr>
             </table>
         </div>
         <div id="classement_Employe">
             <h2>Top des employés du mois</h2>
-            <table id="topEmploye">
+            <table id="top_Employe">
                 <tr>
                     <th>Employe</th>
                     <th>Nombre de consultation de ce mois</th>
-
                 </tr>
             </table>
         </div>
@@ -51,19 +49,17 @@ and open the template in the editor.
                     dataType: 'json'
                 })
                         .done(function (response) {
-                            
-                                var listeMediums = response.topMediums;
-                                var listeEmployes = response.topEmployes;
-                                $.each(listeMediums, function (index, medium) {
-                                    $('#topMedium').append("<tr><td>" +
-                                            medium.denomination + "</td><td>" + medium.nbConsultation + "</td></tr>");
-                                });
+                            var listeMediums = response.topMediums;
+                            var listeEmployes = response.topEmployes;
+                            $.each(listeMediums, function (i, medium) {
+                                $('#top_Medium').append("<tr><td>" +
+                                        medium.denomination + "</td><td>" + medium.nbConsultation + "</td></tr>");
+                            });
 
-                                $.each(listeEmployes, function (index, employe) {
-                                    $('#topEmploye').append("<tr><td>" +
-                                            employe.nom + "</td><td>" + employe.nbConsultation + "</td></tr>");
-                                });
-                            
+                            $.each(listeEmployes, function (i, employe) {
+                                $('#top_Employe').append("<tr><td>" +
+                                        employe.nom + "</td><td>" + employe.nbConsultation + "</td></tr>");
+                            });
                         })
                         .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                             console.log('Error', error); // LOG dans Console Javascript

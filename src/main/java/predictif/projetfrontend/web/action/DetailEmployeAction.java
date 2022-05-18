@@ -23,8 +23,6 @@ public class DetailEmployeAction extends Action {
         ServicePredictif service = new ServicePredictif();
         Employe employe = service.rechercherEmploye(idEmploye);
         request.setAttribute("employe", employe);
-        
-        service.getHistorique(employe).size();
         List<Rdv> listeRdv=service.getHistorique(employe);
         request.setAttribute("listeRdv", listeRdv);
         
