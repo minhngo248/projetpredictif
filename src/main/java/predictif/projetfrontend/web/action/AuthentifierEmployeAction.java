@@ -24,7 +24,7 @@ public class AuthentifierEmployeAction extends Action {
         ServicePredictif service = new ServicePredictif();
         
         Employe employe = service.authentifierEmploye(login, password);
-        
+        request.getSession().removeAttribute("idEmploye");
         if (employe != null) {
             request.setAttribute("employe", employe);
             request.getSession().setAttribute("idEmploye", employe.getId());

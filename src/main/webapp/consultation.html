@@ -10,6 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="stopwatch.js"></script>
     </head>
     <body>
         <div id="profil_client">
@@ -56,10 +57,19 @@ and open the template in the editor.
                 <button id="bouton-pretRdv">Prêt pour le rendez-vous</button>
             </div>
             <div id='d2'>
-                <button id="bouton-demarrerAppel">Démarrer l'appel</button>
+                <button id="bouton-demarrerAppel" onclick="start()">Démarrer l'appel</button>
             </div>
+            
+            <div class="time">
+                <b><span class="hour">00</span>
+                <span class="colon">:</span>
+                <span class="minute">00</span>
+                <span class="colon">:</span>
+                <span class="second">00</span></b>
+            </div>
+            
             <div id='d3'>
-                <button id="bouton-terminerAppel">Terminer l'appel</button>
+                <button id="bouton-terminerAppel" onclick="reset()">Terminer l'appel</button>
                 <br/>
                 <h3>Générer des prédictions</h3>
                 <br/>
@@ -109,6 +119,7 @@ and open the template in the editor.
 
         <script type="text/javascript">
             function initPages() {
+                $('.time').hide();
                 d3.style.display = 'none';
                 d4.style.display = 'none';
 
@@ -121,9 +132,11 @@ and open the template in the editor.
                     dataType: 'json'
                 })
                         .done(function (response) {
-                            if (response.etat === "EN_ATTENTE") d2.style.display = 'none';
-                            else if (response.etat === "EN_COURS") d1.style.display = 'none';
-                            
+                            if (response.etat === "EN_ATTENTE")
+                                d2.style.display = 'none';
+                            else if (response.etat === "EN_COURS")
+                                d1.style.display = 'none';
+
                             $('#nom').html(response.client.nom);
                             $('#dob').html(response.client.dob);
                             $('#adresse').html(response.client.adresse);
@@ -167,6 +180,7 @@ and open the template in the editor.
                             .done(function (response) {
                                 d1.style.display = "none";
                                 d2.style.display = 'block';
+                                $('.time').show();
                                 $('#mode').append("<br/><span id='text' style='font-size: 14px; font-style: italic;'>Cliquez sur le bouton pour démarrer l'appel</span>");
                             })
                             .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
@@ -181,13 +195,13 @@ and open the template in the editor.
                         method: 'POST',
                         data: {
                             todo: 'employe-demarrer-appel'
-
                         },
                         dataType: 'json'
                     })
                             .done(function (response) {
                                 d2.style.display = "none";
                                 d3.style.display = 'block';
+                                $('.time').show();
                                 $('#text').html("Cliquez sur le bouton pour terminer l'appel");
                             })
                             .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
@@ -223,7 +237,7 @@ and open the template in the editor.
                                 alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
                             });
                 });
-                
+
                 $('#bouton-terminerAppel').on('click', function () {
 
                     $.ajax({
@@ -235,16 +249,16 @@ and open the template in the editor.
                         dataType: 'json'
                     })
                             .done(function (response) {
+                                $('.time').hide();
                                 d3.style.display = "none";
                                 d4.style.display = "block";
-
                             })
                             .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                                 console.log('Error', error); // LOG dans Console Javascript
                                 alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
                             });
                 });
-                
+
                 $('#bouton-validerCommentaire').on('click', function () {
                     var cmt = $('#commentaire').val();
                     $.ajax({
