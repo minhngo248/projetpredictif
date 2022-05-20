@@ -49,8 +49,8 @@ and open the template in the editor.
                     dataType: 'json'
                 })
                         .done(function (response) {
-                            var listeMediums = response.topMediums;
-                            var listeEmployes = response.topEmployes;
+                            var listeMediums = response.listeMediums;
+                            var listeEmployes = response.listeEmployes;
                             $.each(listeMediums, function (i, medium) {
                                 $('#top_Medium').append("<tr><td>" +
                                         medium.denomination + "</td><td>" + medium.nbConsultation + "</td></tr>");

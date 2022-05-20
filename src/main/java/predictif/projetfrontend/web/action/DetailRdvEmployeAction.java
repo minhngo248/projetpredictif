@@ -19,20 +19,22 @@ public class DetailRdvEmployeAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        Long idEmp = (Long) request.getSession().getAttribute("idE");
+        Long idEmp = (Long) request.getSession().getAttribute("idEmploye");
         ServicePredictif service = new ServicePredictif();
         Employe employe = service.rechercherEmploye(idEmp);
         employe.getListeRdv().size();
         Rdv rdvEnAttente = null;
         for (Rdv unRdv:employe.getListeRdv()) {
-            if (unRdv.getEtat() == Etat.EN_ATTENTE) {
+            if (unRdv.getEtat() == Etat.EN_ATTENTE || unRdv.getEtat() == Etat.EN_COURS) {
                 rdvEnAttente = unRdv;
                 break;
             }
         }
+       
         if (rdvEnAttente != null)
-            request.setAttribute("rdvEnAttente", rdvEnAttente);
+            
+         request.getSession().setAttribute("rdvEnAttente", rdvEnAttente);
         else
-            request.setAttribute("rdvEnAttente", null);
+            request.getSession().setAttribute("rdvEnAttente", null);
     }   
 }

@@ -5,6 +5,15 @@
  */
 package predictif.projetfrontend.web;
 
+import predictif.projetfrontend.web.serialisation.ValiderCommentaireSerialisation;
+import predictif.projetfrontend.web.action.ValiderCommentaireAction;
+import predictif.projetfrontend.web.serialisation.EmployeTerminerAppelSerialisation;
+import predictif.projetfrontend.web.action.EmployeTerminerAppelAction;
+import predictif.projetfrontend.web.serialisation.GenererPredictionSerialisation;
+import predictif.projetfrontend.web.serialisation.EmployeDemarrerAppelSerialisation;
+import predictif.projetfrontend.web.action.EmployeDemarrerAppelAction;
+import predictif.projetfrontend.web.serialisation.EmployePretRdvSerialisation;
+import predictif.projetfrontend.web.action.EmployePretRdvAction;
 import predictif.projetfrontend.web.serialisation.ObtenirConsultationSerialisation;
 import predictif.projetfrontend.web.action.ObtenirConsultationAction;
 import predictif.projetfrontend.web.serialisation.ConsulterListeMediumSerialisation;
@@ -29,7 +38,7 @@ import predictif.projetfrontend.web.action.ChangerEtatEmployeAction;
 import predictif.projetfrontend.web.action.ConsulterListeMediumAction;
 import predictif.projetfrontend.web.action.DetailClientAction;
 import predictif.projetfrontend.web.action.DetailRdvEmployeAction;
-import predictif.projetfrontend.web.action.EmployeConsulterRdvAction;
+import predictif.projetfrontend.web.action.GenererPredictionAction;
 import predictif.projetfrontend.web.action.InscrireClientAction;
 import predictif.projetfrontend.web.action.StatistiquesEmployeAction;
 import predictif.projetfrontend.web.serialisation.AuthentifierClientSerialisation;
@@ -37,7 +46,6 @@ import predictif.projetfrontend.web.serialisation.AuthentifierEmployeSerialisati
 import predictif.projetfrontend.web.serialisation.ChangerEtatEmployeSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailClientSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailRdvEmployeSerialisation;
-import predictif.projetfrontend.web.serialisation.EmployeConsulterRdvSerialisation;
 import predictif.projetfrontend.web.serialisation.InscrireClientSerialisation;
 import predictif.projetfrontend.web.serialisation.Serialisation;
 import predictif.projetfrontend.web.serialisation.StatistiquesEmployeSerialisation;
@@ -150,17 +158,41 @@ public class ActionServlet extends HttpServlet {
             }
             break;
             
-            case "employe-consulter-rdv": {
-                action = new EmployeConsulterRdvAction();
-                serialisation = new EmployeConsulterRdvSerialisation();
-            }
-            break;
-            
             case "consulter-detail-rdv": {
                 action = new DetailRdvEmployeAction();
                 serialisation = new DetailRdvEmployeSerialisation();
             }
             break;
+            case "employe-pret-rdv": {
+                action = new EmployePretRdvAction();
+                serialisation = new EmployePretRdvSerialisation();
+            }
+            break;
+            
+            case "employe-valider-commentaire": {
+                action = new ValiderCommentaireAction();
+                serialisation = new ValiderCommentaireSerialisation();
+            }
+            break;
+            
+            case "employe-demarrer-appel": {
+                action = new EmployeDemarrerAppelAction();
+                serialisation = new EmployeDemarrerAppelSerialisation();
+            }
+            break;
+            
+            case "employe-terminer-appel": {
+                action = new EmployeTerminerAppelAction();
+                serialisation = new EmployeTerminerAppelSerialisation();
+            }
+            break;
+            
+            case "generer-prediction": {
+                action = new GenererPredictionAction();
+                serialisation = new GenererPredictionSerialisation();
+            }
+            break;
+            
         }
 
         if (action != null && serialisation != null) {

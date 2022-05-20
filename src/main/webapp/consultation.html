@@ -51,10 +51,68 @@ and open the template in the editor.
             <br/>
         </div>
 
-        <button id="bouton-pretRdv">Prêt pour le rendez-vous</button>
+        <div id="mode">
+            <div id='d1'>
+                <button id="bouton-pretRdv">Prêt pour le rendez-vous</button>
+            </div>
+            <div id='d2'>
+                <button id="bouton-demarrerAppel">Démarrer l'appel</button>
+            </div>
+            <div id='d3'>
+                <button id="bouton-terminerAppel">Terminer l'appel</button>
+                <br/>
+                <h3>Générer des prédictions</h3>
+                <br/>
+
+
+                <label for="amour">Amour:</label>
+                <select name="amour" id="amour">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <br><br>
+
+                <label for="sante">Santé: </label>
+                <select name="sante" id="sante">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <br><br>
+
+                <label for="travail">Travail: </label>
+                <select name="travail" id="travail">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <br><br>
+                <button type='button' id="bouton-genererPrediction">Générer</button>
+
+            </div>
+            <div id='d4'>
+                <textarea id="commentaire" name="commentaire" rows="4" cols="50" placeholder="Laissez un commentaire" value="">
+                    
+                </textarea>
+                <br/>
+                <button id="bouton-validerCommentaire">Valider</button>
+            </div>
+        </div>
+
+        <p id="para-amour"></p>
+        <p id="para-sante"></p>
+        <p id="para-travail"></p>
 
         <script type="text/javascript">
             function initPages() {
+                d2.style.display = 'none';
+                d3.style.display = 'none';
+                d4.style.display = 'none';
+
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
@@ -63,36 +121,151 @@ and open the template in the editor.
                     },
                     dataType: 'json'
                 })
-                .done(function (response) {
-                    $('#nom').html(response.client.nom);
-                    $('#dob').html(response.client.dob);
-                    $('#adresse').html(response.client.adresse);
+                        .done(function (response) {
+                            $('#nom').html(response.client.nom);
+                            $('#dob').html(response.client.dob);
+                            $('#adresse').html(response.client.adresse);
 
-                    /*$('#totem').html(response.profil.totem);
-                    $('#zodiaque').html(response.profil.zodiaque);
-                    $('#chinois').html(response.profil.chinois);
-                    $('#couleur').html(response.profil.couleur);*/
-                    var listeRdv = response.client.historique;
-                    $.each(listeRdv, function (i, rdv) {
-                        $('#historique_client').append("<tr><td>" +
-                            rdv.dateFin + "</td><td>" + rdv.medium + " " + rdv.employe + "</td><td> " + rdv.cmt + " </td></tr>");
-                    });
+                            $('#totem').html(response.profil.totem);
+                            $('#zodiaque').html(response.profil.zodiaque);
+                            $('#chinois').html(response.profil.chinois);
+                            $('#couleur').html(response.profil.couleur);
 
-                    $('#denom').html(response.medium.denom);
-                    $('#role').html(response.medium.role);
-                    $('#presentation').html(response.medium.presentation);
-                   
-                })
-                        
-                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                    console.log('Error', error); // LOG dans Console Javascript
-                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
-                });
+                            var listeRdv = response.client.historique;
+                            $.each(listeRdv, function (i, rdv) {
+                                $('#historique_client').append("<tr><td>" +
+                                        rdv.dateFin + "</td><td>" + rdv.medium + " " + rdv.employe + "</td><td> " + rdv.cmt + " </td></tr>");
+                            });
+
+                            $('#denom').html(response.medium.denom);
+                            $('#role').html(response.medium.role);
+                            $('#presentation').html(response.medium.presentation);
+
+                        })
+
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                        });
             }
 
             $(document).ready(function () {
                 initPages();
                 $('#bouton-pretRdv').on('click', function () {
+
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'employe-pret-rdv'
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) {
+                                d1.style.display = "none";
+                                d2.style.display = 'block';
+                                $('#mode').append("<br/><span id='text'>Cliquez sur le bouton pour démarrer l'appel</span>");
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                            });
+                });
+
+                $('#bouton-demarrerAppel').on('click', function () {
+
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'employe-demarrer-appel'
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) {
+                                d2.style.display = "none";
+                                d3.style.display = 'block';
+                                $('#text').html("Cliquez sur le bouton pour terminer l'appel");
+
+
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                            });
+                });
+
+                $('#bouton-genererPrediction').on('click', function () {
+                    var amour = $('#amour').val();
+                    var sante = $('#sante').val();
+                    var travail = $('#travail').val();
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'generer-prediction',
+                            amour: amour,
+                            sante: sante,
+                            travail: travail
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) {
+                                $('#para-amour').html(response.amour);
+                                $('#para-sante').html(response.sante);
+                                $('#para-travail').html(response.travail);
+
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                            });
+
+
+                });
+                $('#bouton-terminerAppel').on('click', function () {
+
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'employe-terminer-appel'
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) {
+                                d3.style.display = "none";
+                                d4.style.display = "block";
+
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                            });
+                });
+                $('#bouton-validerCommentaire').on('click', function () {
+                    var cmt = $('#commentaire').val();
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'employe-valider-commentaire',
+                            cmt: cmt
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) {
+
+                                window.location = "accueilEmploye.html";
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                            });
                 });
             });
         </script>

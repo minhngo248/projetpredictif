@@ -116,23 +116,9 @@ and open the template in the editor.
                         });
                         
                         $('#etat_occupe').on('click', function () {
-                            $.ajax({
-                                url: './ActionServlet',
-                                method: 'POST',
-                                data: {
-                                    todo: 'employe-consulter-rdv',
-                                    idEmp: idEmploye
-                                },
-                                dataType: 'json'
-                            })
-                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                                console.log('Response', response);// LOG dans Console Javascript
-                                window.location = "consultation.html";
-                            })
-                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                                console.log('Error', error); // LOG dans Console Javascript
-                                alert("Erreur lors de l'appel AJAX");
-                            }); 
+                  
+                            window.location = "consultation.html";
+                       
                         });
                         
                     }
