@@ -109,7 +109,6 @@ and open the template in the editor.
 
         <script type="text/javascript">
             function initPages() {
-                d2.style.display = 'none';
                 d3.style.display = 'none';
                 d4.style.display = 'none';
 
@@ -122,6 +121,9 @@ and open the template in the editor.
                     dataType: 'json'
                 })
                         .done(function (response) {
+                            if (response.etat === "EN_ATTENTE") d2.style.display = 'none';
+                            else if (response.etat === "EN_COURS") d1.style.display = 'none';
+                            
                             $('#nom').html(response.client.nom);
                             $('#dob').html(response.client.dob);
                             $('#adresse').html(response.client.adresse);
@@ -165,7 +167,7 @@ and open the template in the editor.
                             .done(function (response) {
                                 d1.style.display = "none";
                                 d2.style.display = 'block';
-                                $('#mode').append("<br/><span id='text'>Cliquez sur le bouton pour démarrer l'appel</span>");
+                                $('#mode').append("<br/><span id='text' style='font-size: 14px; font-style: italic;'>Cliquez sur le bouton pour démarrer l'appel</span>");
                             })
                             .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                                 console.log('Error', error); // LOG dans Console Javascript
@@ -174,7 +176,6 @@ and open the template in the editor.
                 });
 
                 $('#bouton-demarrerAppel').on('click', function () {
-
                     $.ajax({
                         url: './ActionServlet',
                         method: 'POST',
@@ -188,8 +189,6 @@ and open the template in the editor.
                                 d2.style.display = "none";
                                 d3.style.display = 'block';
                                 $('#text').html("Cliquez sur le bouton pour terminer l'appel");
-
-
                             })
                             .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                                 console.log('Error', error); // LOG dans Console Javascript
@@ -223,9 +222,8 @@ and open the template in the editor.
                                 console.log('Error', error); // LOG dans Console Javascript
                                 alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
                             });
-
-
                 });
+                
                 $('#bouton-terminerAppel').on('click', function () {
 
                     $.ajax({
@@ -233,7 +231,6 @@ and open the template in the editor.
                         method: 'POST',
                         data: {
                             todo: 'employe-terminer-appel'
-
                         },
                         dataType: 'json'
                     })
@@ -247,6 +244,7 @@ and open the template in the editor.
                                 alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
                             });
                 });
+                
                 $('#bouton-validerCommentaire').on('click', function () {
                     var cmt = $('#commentaire').val();
                     $.ajax({
@@ -259,7 +257,6 @@ and open the template in the editor.
                         dataType: 'json'
                     })
                             .done(function (response) {
-
                                 window.location = "accueilEmploye.html";
                             })
                             .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
