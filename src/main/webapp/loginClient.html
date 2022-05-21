@@ -5,27 +5,66 @@
         <title>Connexion</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" href="login.css" type="text/css" >
     </head>
     <body>
+        <div class="body">
+            <div class="presentation">
+                <h1 class="h1">Predict'if</h1>
+                <img src="./images/voyance.jpg" alt="Image d'accueil" width='500' height='500'/>
+                <br/><br/>
+                <p class='textePresentation'>Consultez vos médiums pour connaître votre avenir dès maintenant ! </p>
+            </div>
 
-        <h1>Connexion</h1>
+            <div class="connexion">
+                <h1 class="h1">Connexion</h1>
 
-        <!-- Paragraphe avec id="notification" pour les messages de notification -->
-        <p id="notification">Veuillez saisir votre identifiant (adresse mail) et votre mot de passe.</p>
-        
-        <!-- Champs et Bouton de Formulaire -->
-        Identifiant: <input type="text" id="champ-login" size="40" />
-        <br/>
-        Mot de passe: <input type="password" id="champ-password" />
-        <br/>
-        <button id="bouton-connexion">Connexion</button>
-        
-        <!-- Lien vers l'accueil -->
-        <p><a href="inscription.html">Pas encore de compte? Inscrivez-vous en 2 minutes !</a></p>
+                <!-- Paragraphe avec id="notification" pour les messages de notification -->
+                <p id="notification">Veuillez saisir votre identifiant (adresse mail) et votre mot de passe.</p>
+
+                <!-- Champs et Bouton de Formulaire -->
+                Identifiant: <input type="text" id="champ-login" size="40" />
+                <br/><br/>
+                Mot de passe: <input type="password" id="champ-password" />
+                <br/><br/>
+                <button id="bouton-connexion">Connexion</button>
+
+                <!-- Lien vers l'accueil -->
+                <p><a href="inscription.html" >Pas encore de compte? Inscrivez-vous en 2 minutes !</a></p>
+            </div>
+            
+            <div class="mediums" >
+                <div class="first" >
+                    <h4 >Mme Irma</h4>
+
+                    <h5 >Cartomancienne</h5>
+                    <img src="images/cartomancienne.jpg" alt="Image cartomancienne" width="50" height="50"/>
+                    <p class="texte">Comprenez votre entourage grâce à mes cartes! Résultats rapides</p>
+
+                </div>
+                <div class="first">
+                    <h4 >Mr M</h4>
+
+                    <h5 >Astrologue</h5>
+                    <img src="./images/astrologue.jpeg" alt="Image astrologue" width="50" height="50"/>
+                    <p class="texte">Avenir, avenir, que nous révèles-tu? N'attendez pas pour venir me consulter !</p>
+
+                </div>
+                <div class="first">
+                    <h4 >Gwenaelle</h4>
+
+                    <h5>Spirite</h5>
+                    <img src="./images/spirite.jpg" alt="Image spirite" width="50" height="50"/>
+                    <p class="texte">Spécialiste des grandes conversations au-delà de toutes les frontières</p>
+
+                </div>
+            </div>
+        </div>
+
 
         <script type="text/javascript">
-            $(document).ready( function () {
-                $('#bouton-connexion').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+            $(document).ready(function () {
+                $('#bouton-connexion').on('click', function () { // Fonction appelée lors du clic sur le bouton
 
                     console.log("clic sur le bouton de connexion"); // LOG dans Console Javascript
                     $('#notification').html("Connexion..."); // Message pour le paragraphe de notification
@@ -45,26 +84,25 @@
                         },
                         dataType: 'json'
                     })
-                    .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                        var client = response.client;
-                        console.log('Response',response); // LOG dans Console Javascript
-                        if (client !== null) {
-                            //$('#notification').html("Connexion de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
-                            // TODO: afficher les informations du client dans la notification
-                            // Exemple: Connexion de Ada Lovelace (ID 1)
-                            window.location = "accueilClient.html";
-                        }
-                        else {
-                            $('#notification').html("Erreur de Connexion"); // Message pour le paragraphe de notification
-                        }
-                    })
-                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                        console.log('Error',error); // LOG dans Console Javascript
-                        alert("Erreur lors de l'appel AJAX");
-                    })
-                    .always( function () { // Fonction toujours appelée
-                        
-                    });
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                var client = response.client;
+                                console.log('Response', response); // LOG dans Console Javascript
+                                if (client !== null) {
+                                    //$('#notification').html("Connexion de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
+                                    // TODO: afficher les informations du client dans la notification
+                                    // Exemple: Connexion de Ada Lovelace (ID 1)
+                                    window.location = "accueilClient.html";
+                                } else {
+                                    $('#notification').html("Erreur de Connexion"); // Message pour le paragraphe de notification
+                                }
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            })
+                            .always(function () { // Fonction toujours appelée
+
+                            });
                 });
             });
         </script>

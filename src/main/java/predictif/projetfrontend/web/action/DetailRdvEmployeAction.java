@@ -24,17 +24,17 @@ public class DetailRdvEmployeAction extends Action {
         Employe employe = service.rechercherEmploye(idEmp);
         employe.getListeRdv().size();
         Rdv rdvEnAttente = null;
-        for (Rdv unRdv : employe.getListeRdv()) {
+        for (Rdv unRdv:employe.getListeRdv()) {
             if (unRdv.getEtat() == Etat.EN_ATTENTE || unRdv.getEtat() == Etat.EN_COURS) {
                 rdvEnAttente = unRdv;
                 break;
             }
         }
-
-        if (rdvEnAttente != null) {
-            request.getSession().setAttribute("rdvEnAttente", rdvEnAttente);
-        } else {
+       
+        if (rdvEnAttente != null)
+            
+         request.getSession().setAttribute("rdvEnAttente", rdvEnAttente);
+        else
             request.getSession().setAttribute("rdvEnAttente", null);
-        }
-    }
+    }   
 }

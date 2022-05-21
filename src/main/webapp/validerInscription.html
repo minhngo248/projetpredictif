@@ -6,15 +6,24 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>S'inscrire</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inscription</title>
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" href="profil.css" type="text/css" >
     </head>
     <body>
-        <h2>S'inscrire</h2>
+        <div class="header">
+            <h1 class="h1">S'inscrire</h1>
+        </div>
+
         <br/>
-        <div>Formulaire envoyé. Consultez vos mails.</div>
+        <div align='center'>
+            <span class="notification">Formulaire envoyé. <br/> Consultez vos mails.<br/> <br/></span>
+            <button id="bouton-retourAccueil" ><a href="loginClient.html">Se connecter</a></button>
+
+        </div>
         <br/>
-        <button id="bouton-retourAccueil"><a href="loginClient.html">Se connecter</a></button>
+
     </body>
 </html>

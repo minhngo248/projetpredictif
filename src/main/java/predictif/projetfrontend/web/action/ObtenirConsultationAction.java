@@ -26,6 +26,7 @@ public class ObtenirConsultationAction extends Action {
     @Override
     public void executer(HttpServletRequest request) {
         ServicePredictif service = new ServicePredictif();
+        
          
         Long idMedium = Long.parseLong( request.getParameter("idMedium") );
         Medium medium = service.rechercherMedium(idMedium);

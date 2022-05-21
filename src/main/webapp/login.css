@@ -1,0 +1,42 @@
+.presentation, .h1{
+    font-style:italic;
+   
+}
+.h1{
+    font-weight: bold;
+    text-align: center;
+}
+.textePresentation{
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.presentation{
+   
+    padding-right: 100px;
+}
+.connexion{
+   text-align: left;
+}
+.body, .mediums{
+    display: flex;
+    flex-direction: row;
+    
+}
+.mediums{
+    
+}
+
+
+.first{
+    border: 5px solid black;
+    padding: 5px;
+    margin: 5px;
+    padding-right: 5px;
+    text-align:center;
+    width: 200px;
+    height: 250px;
+    float: left;
+    
+    
+}

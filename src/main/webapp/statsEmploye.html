@@ -10,14 +10,18 @@ and open the template in the editor.
         <title>Statistiques</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" href="profil.css" type="text/css" >
     </head>
     <body>
-        <h1>Statistiques </h1>
-        <a href="statsEmploye.html">Statistiques</a>
-        <a href="accueilEmploye.html">Profil</a>
-        <a href="loginEmploye.html">Déconnexion</a>
+         <div class="header">
+            <h1 class="h1">Statistiques</h1>
 
-        <div id="classement_Medium">
+            <button id="bouton-statistiques" class="bouton-header">Statistiques</button>
+            <button id="bouton-profil" class="bouton-header">Profil</button>
+            <button id="bouton-deconnexion" class="bouton-header">Déconnexion</button>
+        </div>
+       <br/><br/>
+        <div class="classement_Medium">
             <h2>Classement des médiums</h2>
             <table id="top_Medium">
                 <tr>
@@ -26,7 +30,8 @@ and open the template in the editor.
                 </tr>
             </table>
         </div>
-        <div id="classement_Employe">
+       <br/><br/>
+        <div class="classement_Employe">
             <h2>Top des employés du mois</h2>
             <table id="top_Employe">
                 <tr>
@@ -70,6 +75,15 @@ and open the template in the editor.
 
             $(document).ready(function () {
                 initPages();
+                 $('#bouton-statistiques').on('click', function () {
+                    window.location = "statsEmploye.html";
+                });
+                $('#bouton-profil').on('click', function () {
+                    window.location = "accueilEmploye.html";
+                }); $('#bouton-deconnexion').on('click', function () {
+                    window.location = "loginEmploye.html";
+                });
+               
             });
         </script>
 

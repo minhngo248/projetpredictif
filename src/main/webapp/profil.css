@@ -1,0 +1,73 @@
+.header{
+    color: black;
+    font-size: 15px;
+    background-color: lightgray;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    text-align:right;
+}
+.h1{
+    padding-right: 650px;
+}
+.checkbox, .menuDeroulant{
+    padding-right: 100px;
+    
+}
+.bouton-header{
+    background-color: lightgray;
+    border: none;
+    color: black;
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+}
+.body, .tri, .listeMedium, .classement_Medium, .predictions{
+    display: flex;
+    flex-direction: row;
+}
+.first_div, .second_div, .third_div {
+
+    border: 5px solid black;
+    padding: 50px;
+    margin: 10px;
+    padding-right: 100px;
+}
+
+.newDiv {
+
+    border: 5px solid black;
+    padding: 20px;
+    margin: 10px;
+    
+    
+}
+.denomination{
+    font-weight: bold;
+    font-size:larger;
+    text-align: center;
+}
+#historique, #top_Medium, #top_Employe {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#historique td, #historique th, #top_Medium td, #top_Employe td, #top_Medium th, #top_Employe th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#historique tr, #top_Medium tr, #top_Employe tr:nth-child(even){background-color: #f2f2f2;}
+
+#historique th, #top_Medium th, #top_Employe th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: grey;
+  color: white;
+}
+
+

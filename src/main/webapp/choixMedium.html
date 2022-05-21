@@ -8,12 +8,14 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Choisir son médium</title>
+        <title>Choisir un médium</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="profil.css" type="text/css" >
         <script>
             function initPages() {
-            // Appel AJAX
+                // var tri = $('#tri').val();
+                // Appel AJAX
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
@@ -22,23 +24,25 @@ and open the template in the editor.
                     },
                     dataType: 'json'
                 })
-                .done(function (response) {
-                    var listeMedium = response.listeMed;
-                    $.each(listeMedium, function (index, medium) {
-                        $('#listeMedium').append("<div class='newDiv'><span>" +
-                                medium.presentation + "     " + medium.denomination + "</span>    " +
-                                "<button id=" + medium.idMedium + 
-                            " onClick='obtenirMedium(this.id)'>Obtenir une consultation </button>" + "</div>");
-                        });
+                        .done(function (response) {
+                            var listeMedium = response.listeMed;
+                            $.each(listeMedium, function (index, medium) {
+                                $('#listeMedium').append("<div class='newDiv'><span class='denomination'>" +
+                                        medium.denomination + "</span><br/><br/><span>" + "<span>" +
+                                        medium.profession + "<br/><br/>" + medium.presentation + "</span><br/><br/>    " +
+                                        "<button id=" + medium.idMedium +
+                                        " onClick='obtenirMedium(this.id)'>Obtenir une consultation </button>" + "</div>");
+                            });
 
-                })
-                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                    console.log('Error', error); // LOG dans Console Javascript
-                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
-                });
+                        })
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                        });
             }
 
             function obtenirMedium(idMedium) {
+
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
@@ -48,63 +52,99 @@ and open the template in the editor.
                     },
                     dataType: 'json'
                 })
-                .done(function(response) {
-                    if (response.rdv !== null) {
-                        alert("Confirmé\n    Vous recevrez bientôt un SMS.");
-                        window.location = "accueilClient.html"; 
-                    } else {
-                        alert("Ce voyant est en consultation. \n    Réesssayez plus tard !");
-                    }    
-                           
-                })
-                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                    console.log('Error', error); // LOG dans Console Javascript
-                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
-                });
-                
+                        .done(function (response) {
+                            if (response.rdv !== null) {
+                                alert("Confirmé\n    Vous recevrez bientôt un SMS.");
+                                window.location = "accueilClient.html";
+                            } else {
+                                alert("Ce voyant est en consultation. \n    Réesssayez plus tard !");
+                            }
+
+                        })
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
+                        });
+
             }
 
             $(document).ready(function () {
                 initPages();
+                $('#bouton-choixMedium').on('click', function () {
+                    window.location = "choixMedium.html";
+                });
+                $('#bouton-profil').on('click', function () {
+                    window.location = "accueilClient.html";
+                });
+               $('#bouton-deconnexion').on('click', function () {
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'deconnexion-client'
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                window.location = "loginClient.html";
+
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            })
+                            .always(function () { // Fonction toujours appelée
+
+                            });
+                });
             });
         </script>        
     </head>
     <body>
-        <h1>Choisir un médium</h1>
-        <a href="#">Trouver un médium</a>
-        <a href="accueilClient.html">Profil</a>
-        <a href="loginClient.html">Déconnexion</a>
+        <div class="header">
+            <h1 class="h1">Choisir un médium</h1>
+            <button id="bouton-choixMedium" class="bouton-header">Trouver un médium</button>
+            <button id="bouton-profil" class="bouton-header">Profil</button>
+            <button id="bouton-deconnexion" class="bouton-header">Déconnexion</button>
 
-       
-        
-        <form>
-                    <label for="tri">Trier par :</label>
+        </div>
+
+
+        <div class="tri">
+
+
+            <div class="checkbox">
+
+                <h4>Professions à afficher: </h4>
+
+                <input type="checkbox" id="cartomancien" name="cartomancien">
+                <label for="cartomancien">Cartomancien</label>
+
+                <input type="checkbox" id="spirites" name="spirites">
+                <label for="spirites">Spirites</label>
+
+                <input type="checkbox" id="astrologues" name="astrologues">
+                <label for="astrologues">Astrologues</label>
+
+
+            </div>
+            <div class="menuDeroulant">
+                <form>
+                    <label for="tri"><h4>Trier par :</h4></label>
                     <select name="tri" id="tri">
                         <option value="Professions">Professions</option>
-                        <option value="Alphabétique">Alphabétique</option>
+                        <option value="ABC">ABC</option>
                     </select>
-                    <br><br>
                     <input type="submit" value="Lancer la recherche">
                 </form>
+            </div>
 
-        <div>
-            <fieldset>
-                <legend>Professions à afficher</legend>
-                <div>
-                    <input type="checkbox" id="cartomancien" name="cartomancien">
-                    <label for="cartomancien">Cartomancien</label>
-
-                    <input type="checkbox" id="spirites" name="spirites">
-                    <label for="spirites">Spirites</label>
-
-                    <input type="checkbox" id="astrologues" name="astrologues">
-                    <label for="astrologues">Astrologues</label>
-                </div>
-            </fieldset>
         </div>
-        <div id="second_div">
+        <div >
             <h2>Médium disponible</h2>    
-            <div id="listeMedium">
+            <div id="listeMedium" class="listeMedium">
             </div>
         </div>
 

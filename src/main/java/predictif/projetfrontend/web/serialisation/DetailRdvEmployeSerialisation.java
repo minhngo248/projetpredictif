@@ -30,11 +30,12 @@ public class DetailRdvEmployeSerialisation extends Serialisation {
         JsonObject jsonClient = new JsonObject();
         Rdv rdvEnAttente = (Rdv) request.getSession().getAttribute("rdvEnAttente");
 
+        System.out.println(rdvEnAttente);
         if (rdvEnAttente == null) {
             return;
         }
 
-        container.addProperty("etat", rdvEnAttente.getEtat().toString());
+        container.addProperty("idRdv", rdvEnAttente.getId());
         jsonClient.addProperty("nom", rdvEnAttente.getClient().getPrenom() + " " + rdvEnAttente.getClient().getNom());
         jsonClient.addProperty("dob", sdf.format(rdvEnAttente.getClient().getDateNaissance()));
         jsonClient.addProperty("adresse", rdvEnAttente.getClient().getAdressePostale());

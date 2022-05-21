@@ -10,35 +10,43 @@ and open the template in the editor.
         <title>Bienvenue sur Predict'if</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" href="profil.css" type="text/css" >
     </head>
     <body>
-        <h1>Bonjour <span class="prenom"></span></h1>
-        <a href="statsEmploye.html">Statistiques</a>
-        <a href="loginEmploye.html">Déconnexion</a>
-
-        <div id="first_div">
-            <h2>Votre profil</h2>
-            <span id="nom"></span> <span class="prenom"></span><br/>
-            <br/>
-            Téléphone : <span id="tel"></span> <br/>
-            <br/>
-            Mail : <span id="mail"></span> <br/>
-            <div id="d1">
-                <button id="bouton-modifierMotDePasse">Modifier votre mot de passe</button>
-            </div>
-            <div id="d2" >
-                Nouveau mot de passe: <input type="password" id="champ-password" size="40"/>
+        <div class="header">
+            <h1 class="h1">Bonjour <span class="prenom"></span></h1>
+            
+            <button class="bouton-header" id="bouton-profil">Profil</button>
+            <button class="bouton-header" id="bouton-statistiques">Statistiques</button>
+            <button class="bouton-header" id="bouton-deconnexion">Déconnexion</button>
+        </div>
+        <div class="body">
+            <div class="first_div">
+                <h2>Votre profil</h2>
+                <span id="nom"></span> <span class="prenom"></span><br/>
                 <br/>
-                Confirmer mot de passe: <input type="password" id="champ-confpassword" size="40"/>
-                <button id="bouton-validerMotDePasse" >Valider votre mot de passe</button>
-                <button id="bouton-annulerMotDePasse" >Annuler</button>
+                Téléphone : <span id="tel"></span> <br/>
+                <br/>
+                Mail : <span id="mail"></span> <br/>
+                <div id="d1">
+                    <button id="bouton-modifierMotDePasse">Modifier votre mot de passe</button>
+                </div>
+                <div id="d2" >
+                    Nouveau mot de passe: <input type="password" id="champ-password" size="40"/>
+                    <br/>
+                    Confirmer mot de passe: <input type="password" id="champ-confpassword" size="40"/>
+                    <button id="bouton-validerMotDePasse" >Valider votre mot de passe</button>
+                    <button id="bouton-annulerMotDePasse" >Annuler</button>
+                </div>
+            </div>
+            <div class="second_div">
+                Votre état: 
+                <div id="etatEmp">
+                    
+                </div>
             </div>
         </div>
-
-        <div id="etatEmp">
-        </div>
-
-        <div id="third_div">
+        <div class="third_div">
             <h2>Historique</h2>
             <table id="historique">
                 <tr>
@@ -66,69 +74,71 @@ and open the template in the editor.
                     },
                     dataType: 'json'
                 })
-                .done(function (response) {
-                    var idEmploye = response.employe.idEmp;
-                    if (response.session) {
-                        $('#nom').html(response.employe.nom);
-                        $('.prenom').html(response.employe.prenom);
-                        $('#tel').html(response.employe.tel);
-                        $('#mail').html(response.employe.mail);
+                        .done(function (response) {
+                            var idEmploye = response.employe.idEmp;
+                            if (response.session) {
+                                $('#nom').html(response.employe.nom);
+                                $('.prenom').html(response.employe.prenom);
+                                $('#tel').html(response.employe.tel);
+                                $('#mail').html(response.employe.mail);
 
-                        $('#etatEmp').append("<span>" + response.employe.etat + "</span>");
-                        
-                        var listeRdv = response.listeRdv;
-                        $.each(listeRdv, function (index, rdv) {
-                            $('#historique').append("<tr><td>" +
-                                         rdv.dateDemande + "</td><td>" + rdv.medium + "</td><td>" + 
-                                         rdv.client + "</td><td>" + rdv.etat + "</td></tr>");
+                                $('#etatEmp').append("<span>" + response.employe.etat + "</span>");
+
+                                var listeRdv = response.listeRdv;
+                                $.each(listeRdv, function (index, rdv) {
+                                    $('#historique').append("<tr><td>" +
+                                            rdv.dateDemande + "</td><td>" + rdv.medium + "</td><td>" +
+                                            rdv.client + "</td><td>" + rdv.etat + "</td></tr>");
+                                });
+
+                                if (response.employe.etat === "DISPONIBLE") {
+                                    $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'green'/></svg> <br/>");
+                                    $('#etatEmp').append("<button type='button' id='bouton-etat'>Rendre indisponible</button>");
+                                } else if (response.employe.etat === "INDISPONIBLE") {
+                                    $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'red'/></svg> <br/>");
+                                    $('#etatEmp').append("<button type='button' id='bouton-etat'>Rendre disponible</button>");
+                                } else {
+                                    $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'orange'/></svg> <br/>");
+                                    $('#etatEmp').append("<span>Vous avez un client en attente</span><br/>");
+                                    $('#etatEmp').append("<button type='button' id='etat_occupe'>Consulter votre rendez-vous</button>");
+                                }
+
+                                $('#bouton-etat').on('click', function () {
+                                    $.ajax({
+                                        url: './ActionServlet',
+                                        method: 'POST',
+                                        data: {
+                                            todo: 'changer-etat-employe',
+                                            idEmp: idEmploye
+                                        },
+                                        dataType: 'json'
+                                    })
+                                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                                console.log('Response', response);// LOG dans Console Javascript
+                                                location.reload(true);
+                                            })
+                                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                                console.log('Error', error); // LOG dans Console Javascript
+                                                alert("Erreur lors de l'appel AJAX");
+                                            });
+                                });
+
+                                $('#etat_occupe').on('click', function () {
+
+                                    window.location = "consultation.html";
+
+                                });
+
+                            }
+                        })
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
                         });
-                        
-                        if (response.employe.etat === "DISPONIBLE") {
-                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'green'/></svg> <br/>");
-                            $('#etatEmp').append("<button type='button' id='bouton-etat'>Rendre indisponible</button>");
-                        } else if (response.employe.etat === "INDISPONIBLE") {
-                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'red'/></svg> <br/>");
-                            $('#etatEmp').append("<button type='button' id='bouton-etat'>Rendre disponible</button>");
-                        } else {
-                            $('#etatEmp').append("<svg width='200' height='20' xmlns='http://www.w3.org/2000/svg' version='1.1'><circle cx='10' cy='15' r = '5' fill = 'orange'/></svg> <br/>");
-                            $('#etatEmp').append("<span>Vous avez un client en attente</span><br/>");
-                            $('#etatEmp').append("<button type='button' id='etat_occupe'>Consulter votre rendez-vous</button>");
-                        }
-                        
-                        $('#bouton-etat').on('click', function () {
-                            $.ajax({
-                                url: './ActionServlet',
-                                method: 'POST',
-                                data: {
-                                    todo: 'changer-etat-employe'
-                                },
-                                dataType: 'json'
-                            })
-                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                                console.log('Response', response);// LOG dans Console Javascript
-                                location.reload(true);                                  
-                            })
-                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                                console.log('Error', error); // LOG dans Console Javascript
-                                alert("Erreur lors de l'appel AJAX");
-                            });
-                        });
-                        
-                        $('#etat_occupe').on('click', function () {
-                            window.location = "consultation.html";
-                        });
-                        
-                    }
-                })
-                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                    console.log('Error', error); // LOG dans Console Javascript
-                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
-                });
             }
 
             $(document).ready(function () {
                 initPages();
-
                 $('#bouton-modifierMotDePasse').on('click', function () { // Fonction appelée lors du clic sur le bouton
 
                     console.log("clic sur le bouton modification de mot de passe"); // LOG dans Console Javascript
@@ -142,7 +152,6 @@ and open the template in the editor.
                 $('#bouton-validerMotDePasse').on('click', function () {
                     // Récupération de la valeur des champs du formulaire
                     var champPassword = $('#champ-password').val();
-
                     // Appel AJAX
                     $.ajax({
                         url: './ActionServlet',
@@ -153,33 +162,60 @@ and open the template in the editor.
                         },
                         dataType: 'json'
                     })
-                    .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                        console.log('Response', response); // LOG dans Console Javascript
-                        if (response.employe !== null) {
-                        //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
-                        // TODO: afficher les informations du client dans la notification
-                        // Exemple: Connexion de Ada Lovelace (ID 1)
-                            $('#notification').html("Mot de passe modifié");
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                console.log('Response', response); // LOG dans Console Javascript
+                                if (response.employe !== null) {
+                                    //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
+                                    // TODO: afficher les informations du client dans la notification
+                                    // Exemple: Connexion de Ada Lovelace (ID 1)
+                                    $('#notification').html("Mot de passe modifié");
+                                } else {
+                                    $('#notification').html("Erreur lors de la modification de mot de passe"); // Message pour le paragraphe de notification
+                                }
 
-                        } else {
-                            $('#notification').html("Erreur lors de la modification de mot de passe"); // Message pour le paragraphe de notification
-                        }
-
-                    })
-                    .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                        console.log('Error', error); // LOG dans Console Javascript
-                        alert("Erreur lors de l'appel AJAX");
-                    })
-                    .always(function () { // Fonction toujours appelée
-                        d1.style.display = "block";
-                        d2.style.display = "none";
-                    });
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            })
+                            .always(function () { // Fonction toujours appelée
+                                d1.style.display = "block";
+                                d2.style.display = "none";
+                            });
                 });
                 $('#bouton-annulerMotDePasse').on('click', function () {
                     d1.style.display = "block";
                     d2.style.display = "none";
                 });
-              
+                $('#bouton-deconnexion').on('click', function () {
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'deconnexion-employe'
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                window.location = "loginEmploye.html";
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            })
+                            .always(function () { // Fonction toujours appelée
+
+                            });
+                });
+                $('#bouton-statistiques').on('click', function () {
+                    window.location = "statsEmploye.html";
+                });
+                $('#bouton-profil').on('click', function () {
+                    window.location = "accueilEmploye.html";
+                });
+                
             });
         </script>
     </body>

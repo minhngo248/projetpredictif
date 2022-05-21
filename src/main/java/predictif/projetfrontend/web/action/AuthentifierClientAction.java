@@ -24,7 +24,7 @@ public class AuthentifierClientAction extends Action {
         ServicePredictif service = new ServicePredictif();
         
         Client client = service.authentifierClient(login, password);
-        request.getSession().removeAttribute("idClient");
+        
         if (client != null) {
             request.setAttribute("client", client);
             request.getSession().setAttribute("idClient", client.getId());

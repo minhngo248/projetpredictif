@@ -2,37 +2,41 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Connexion</title>
+        <title>Inscription</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" href="profil.css" type="text/css" >
     </head>
     <body>
+        <div class="header">
+            <h1 class="h1">S'inscrire</h1>
+        </div>
 
-        <h1>Inscription</h1>
 
         <!-- Paragraphe avec id="notification" pour les messages de notification -->
-        <p id="notification">S'inscrire.</p>
+        <p id="notification"></p>
 
         <!-- Champs et Bouton de Formulaire -->
-        Nom: <input type="text" id="champ-nom" size="80" />
-        <br/>
-        Prénom: <input type="text" id="champ-prenom" />
-        <br/>
-        Date de naissance: <input type="text" id="champ-dateNaissance" />
-        <br/>
-        Adresse postale: <input type="text" id="champ-adresse" />
-        <br/>
-        Téléphone portable: <input type="text" id="champ-tel" />
-        <br/>
-        Mail: <input type="text" id="champ-login" />
-        <br/>
-        Mot de passe: <input type="password" id="champ-password" />
-        <br/>
-        Confirmation mot de passe:  <input type="password" id="champ-confirmPassword" />
-        <br/>
-        <button id="bouton-retourConnexion">Retour</button>
-        <button id="bouton-inscription">Valider</button>
-
+        <div align="center">
+            <span class="infos">Nom:   </span> <input type="text" id="champ-nom" size="60"  />
+            <br/><br/>
+            <span class="infos">Prénom:</span> <input type="text" id="champ-prenom" size="57" />
+            <br/><br/>
+            Date de naissance: <input type="date" id="champ-dateNaissance" size="80" />
+            <br/><br/>
+            Adresse postale: <input type="text" id="champ-adresse" size="80" />
+            <br/><br/>
+            Téléphone portable: <input type="text" id="champ-tel" size="80" />
+            <br/><br/>
+            Mail: <input type="text" id="champ-login" size="80" />
+            <br/><br/>
+            Mot de passe: <input type="password" id="champ-password" size="80" />
+            <br/><br/>
+            Confirmation mot de passe:  <input type="password" id="champ-confirmPassword" size="80"/>
+            <br/><br/>
+            <button id="bouton-retourConnexion">Retour</button>
+            <button id="bouton-inscription">Valider</button>
+        </div>
         <script>
             $(document).ready(function () {
                 $('#bouton-inscription').on('click', function () { // Fonction appelée lors du clic sur le bouton
@@ -66,27 +70,27 @@
                         },
                         dataType: 'json'
                     })
-                    .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                        console.log('Response', response); // LOG dans Console Javascript
-                        if (response.client !== null) {
-                            //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
-                            // TODO: afficher les informations du client dans la notification
-                            // Exemple: Connexion de Ada Lovelace (ID 1)
-                            window.location = 'validerInscription.html';
-                        } else {
-                            $('#notification').html("Erreur lors de l'inscription"); // Message pour le paragraphe de notification
-                        }
-                    })
-                    .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                        console.log('Error', error); // LOG dans Console Javascript
-                        alert("Erreur lors de l'appel AJAX");
-                    })
-                    .always(function () { // Fonction toujours appelée
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                console.log('Response', response); // LOG dans Console Javascript
+                                if (response.client !== null) {
+                                    //$('#notification').html("Iscription de"+" "+client.getPrenom()+ " " +client.getNom()+ " (ID " +client.getId()+ ")");  // Message pour le paragraphe de notification
+                                    // TODO: afficher les informations du client dans la notification
+                                    // Exemple: Connexion de Ada Lovelace (ID 1)
+                                    window.location = 'validerInscription.html';
+                                } else {
+                                    $('#notification').html("Erreur lors de l'inscription"); // Message pour le paragraphe de notification
+                                }
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            })
+                            .always(function () { // Fonction toujours appelée
 
-                    });
+                            });
                 });
-                
-                $('#bouton-retourConnexion').on('click', function() {
+
+                $('#bouton-retourConnexion').on('click', function () {
                     window.location = "loginClient.html";
                 });
             });

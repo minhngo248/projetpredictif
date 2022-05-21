@@ -10,48 +10,53 @@ and open the template in the editor.
         <title>Bienvenue sur Predict'if</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" href="profil.css" type="text/css" >
     </head>
     <body>
-        <h1>Bonjour <span class="prenom"></span></h1>
-        <a href="choixMedium.html">Choisir un médium</a>
-        <a href="loginClient.html">Déconnexion</a>
+        <div class="header">
+            <h1 class="h1">Bonjour <span class="prenom"></span></h1>
 
-        <div id="first_div">
-            <h2>Votre profil</h2>
-            <span id="nom"></span> <span class="prenom"></span><br/>
-            né(e) le <span id="dob"></span> <br/>
-            <br/>
-            Adresse : <span id="adresse"></span> <br/>
-            <br/>
-            Téléphone : <span id="tel"></span> <br/>
-            <br/>
-            Mail : <span id="mail"></span> <br/>
-
-            <div id="d1">
-                <button id="bouton-modifierMotDePasse">Modifier votre mot de passe</button>
-            </div>
-            <div id="d2" >
-                Nouveau mot de passe: <input type="password" id="champ-password" size="40"/>
+            <button id="bouton-choixMedium" class="bouton-header">Trouver un médium</button>
+            <button id="bouton-profil" class="bouton-header">Profil</button>
+            <button id="bouton-deconnexion" class="bouton-header">Déconnexion</button>
+        </div>
+        <div class="body">
+            <div class="first_div">
+                <h2>Votre profil</h2>
+                <span id="nom"></span> <span class="prenom"></span><br/>
+                né(e) le <span id="dob"></span> <br/>
                 <br/>
-                Confirmer mot de passe: <input type="password" id="champ-confpassword" size="40"/>
-                <button id="bouton-validerMotDePasse" >Valider votre mot de passe</button>
-                <button id="bouton-annulerMotDePasse" >Annuler</button>
+                Adresse : <span id="adresse"></span> <br/>
+                <br/>
+                Téléphone : <span id="tel"></span> <br/>
+                <br/>
+                Mail : <span id="mail"></span> <br/>
+
+                <p id="d1">
+                    <button id="bouton-modifierMotDePasse">Modifier votre mot de passe</button>
+                </p>
+                <p id="d2" >
+                    Nouveau mot de passe: <input type="password" id="champ-password" size="40"/>
+                    <br/>
+                    Confirmer mot de passe: <input type="password" id="champ-confpassword" size="40"/>
+                    <button id="bouton-validerMotDePasse" >Valider votre mot de passe</button>
+                    <button id="bouton-annulerMotDePasse" >Annuler</button>
+                </p>
+
             </div>
 
+            <div class="second_div">
+                <h2>Votre profil astral</h2>        
+                Animal totem : <span id="totem"></span> <br/>
+                <br/>
+                Signe zodiaque : <span id="zodiaque"></span> <br/>
+                <br/>
+                Signe chinois : <span id="chinois"></span> <br/>
+                <br/>
+                Couleur : <span id="couleur"></span> 
+            </div>
         </div>
-
-        <div id="second_div">
-            <h2>Votre profil astral</h2>        
-            Animal totem : <span id="totem"></span> <br/>
-            <br/>
-            Signe zodiaque : <span id="zodiaque"></span> <br/>
-            <br/>
-            Signe chinois : <span id="chinois"></span> <br/>
-            <br/>
-            Couleur : <span id="couleur"></span> 
-        </div>
-
-        <div id="third_div">
+        <div class="third_div">
             <h2>Historique</h2>
             <table id="historique">
                 <tr>
@@ -60,7 +65,6 @@ and open the template in the editor.
                 </tr>
             </table>
         </div>
-
         <script type="text/javascript">
             function initPages() {
                 //var idClient = parseInt(window.location.search.substring(10));
@@ -77,32 +81,32 @@ and open the template in the editor.
                     },
                     dataType: 'json'
                 })
-                .done(function (response) {
-                if (response.session) {
+                        .done(function (response) {
+                            if (response.session) {
 
-                    $('#nom').html(response.client.nom);
-                    $('.prenom').html(response.client.prenom);
-                    $('#dob').html(response.client.dob);
-                    $('#adresse').html(response.client.adresse);
-                    $('#tel').html(response.client.tel);
-                    $('#mail').html(response.client.mail);
+                                $('#nom').html(response.client.nom);
+                                $('.prenom').html(response.client.prenom);
+                                $('#dob').html(response.client.dob);
+                                $('#adresse').html(response.client.adresse);
+                                $('#tel').html(response.client.tel);
+                                $('#mail').html(response.client.mail);
 
-                    $('#totem').html(response.profil.totem);
-                    $('#zodiaque').html(response.profil.zodiaque);
-                    $('#chinois').html(response.profil.chinois);
-                    $('#couleur').html(response.profil.couleur);
+                                $('#totem').html(response.profil.totem);
+                                $('#zodiaque').html(response.profil.zodiaque);
+                                $('#chinois').html(response.profil.chinois);
+                                $('#couleur').html(response.profil.couleur);
 
-                    var listeRdv = response.listeRdv;
-                    $.each(listeRdv, function (i, rdv) {
-                        $('#historique').append("<tr><td>" +
-                            rdv.dateDemande + "</td><td>" + rdv.medium + "</td></tr>");
+                                var listeRdv = response.listeRdv;
+                                $.each(listeRdv, function (i, rdv) {
+                                    $('#historique').append("<tr><td>" +
+                                            rdv.dateDemande + "</td><td>" + rdv.medium + "</td></tr>");
+                                });
+                            }
+                        })
+                        .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
                         });
-                    }
-                })
-                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                    console.log('Error', error); // LOG dans Console Javascript
-                    alert("Erreur lors du chargement des donnees: HTTP Code " + error.status);
-                });
             }
 
             $(document).ready(function () {
@@ -160,6 +164,35 @@ and open the template in the editor.
                 $('#bouton-annulerMotDePasse').on('click', function () {
                     d1.style.display = "block";
                     d2.style.display = "none";
+                });
+                $('#bouton-deconnexion').on('click', function () {
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'deconnexion-client'
+
+                        },
+                        dataType: 'json'
+                    })
+                            .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                                window.location = "loginClient.html";
+
+                            })
+                            .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                                console.log('Error', error); // LOG dans Console Javascript
+                                alert("Erreur lors de l'appel AJAX");
+                            })
+                            .always(function () { // Fonction toujours appelée
+
+                            });
+                });
+                $('#bouton-choixMedium').on('click', function () {
+                    window.location = "choixMedium.html";
+                });
+                $('#bouton-profil').on('click', function () {
+                    window.location = "accueilClient.html";
                 });
 
             });

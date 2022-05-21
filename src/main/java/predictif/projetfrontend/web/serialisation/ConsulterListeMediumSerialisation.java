@@ -35,6 +35,9 @@ public class ConsulterListeMediumSerialisation extends Serialisation {
     
                 jsonMedium.addProperty("presentation", medium.getPresentation());
                 jsonMedium.addProperty("denomination", medium.getDenomination());
+                String profession=medium.getClass().toString();
+                jsonMedium.addProperty("profession", profession.substring(profession.lastIndexOf("." )+1));
+                
                 jsonMedium.addProperty("idMedium", medium.getId());
                 jsonListeMedium.add(jsonMedium);
             }

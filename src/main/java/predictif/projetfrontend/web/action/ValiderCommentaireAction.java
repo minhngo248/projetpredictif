@@ -23,6 +23,7 @@ public class ValiderCommentaireAction extends Action {
         System.out.println(message);
 
         service.commenterConsultationClient(rdvTermine, message);
+        request.getSession().removeAttribute("rdvTermine");
     }
 
 }
