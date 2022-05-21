@@ -18,25 +18,24 @@
 .connexion{
    text-align: left;
 }
-.body, .mediums{
-    display: flex;
-    flex-direction: row;
-    
-}
-.mediums{
-    
-}
 
+.body {
+    float: left;
+    width: 50%;
+}
 
 .first{
     border: 5px solid black;
     padding: 5px;
     margin: 5px;
     padding-right: 5px;
-    text-align:center;
-    width: 200px;
+    text-align: center;
+    width: 33.33%;
     height: 250px;
-    float: left;
-    
-    
+    float: left; 
+}
+
+.mediums:after {
+    display: table;
+    clear: both;
 }

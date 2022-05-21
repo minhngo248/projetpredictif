@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inscription</title>
+        <title>Inscription Client</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <link rel="stylesheet" href="profil.css" type="text/css" >
@@ -17,22 +17,22 @@
         <p id="notification"></p>
 
         <!-- Champs et Bouton de Formulaire -->
-        <div align="center">
-            <span class="infos">Nom:   </span> <input type="text" id="champ-nom" size="60"  />
+        <div id="champs">
+            <span class="infos">Nom:   </span><br/> <input type="text" id="champ-nom" size="80"   />
             <br/><br/>
-            <span class="infos">Prénom:</span> <input type="text" id="champ-prenom" size="57" />
+            <span class="infos">Prénom:</span><br/> <input type="text" id="champ-prenom" size="80"/>
             <br/><br/>
-            Date de naissance: <input type="date" id="champ-dateNaissance" size="80" />
+            <span class="infos">Date de naissance:</span><br/> <input type="date" id="champ-dateNaissance" size="80"/>
             <br/><br/>
-            Adresse postale: <input type="text" id="champ-adresse" size="80" />
+            <span class="infos">Adresse postale:</span><br/> <input type="text" id="champ-adresse" size="80"/>
             <br/><br/>
-            Téléphone portable: <input type="text" id="champ-tel" size="80" />
+            <span class="infos">Téléphone portable:</span><br/> <input type="text" id="champ-tel" size="80"/>
             <br/><br/>
-            Mail: <input type="text" id="champ-login" size="80" />
+            <span class="infos">Mail: </span><br/><input type="text" id="champ-login" size="80"/>
             <br/><br/>
-            Mot de passe: <input type="password" id="champ-password" size="80" />
+            <span class="infos">Mot de passe:</span><br/> <input type="password" id="champ-password" size="80"/>
             <br/><br/>
-            Confirmation mot de passe:  <input type="password" id="champ-confirmPassword" size="80"/>
+            <span class="infos">Confirmation mot de passe:</span><br/>  <input type="password" id="champ-confirmPassword" size="80"/>
             <br/><br/>
             <button id="bouton-retourConnexion">Retour</button>
             <button id="bouton-inscription">Valider</button>

@@ -21,12 +21,12 @@ public class SerialisationGeneral extends Serialisation {
 
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       JsonObject container=new JsonObject();
+        JsonObject container = new JsonObject();
         PrintWriter out = this.getWriter(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
         out.println(gson.toJson(container));
         //gson.toJson(jsonClient, out);
         out.close();
     }
-    
+
 }

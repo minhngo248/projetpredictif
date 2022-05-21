@@ -26,7 +26,7 @@
 }
 .body, .tri, .listeMedium, .classement_Medium, .predictions{
     display: flex;
-    flex-direction: row;
+    flex-direction: row; 
 }
 .first_div, .second_div, .third_div {
 
@@ -37,18 +37,17 @@
 }
 
 .newDiv {
-
     border: 5px solid black;
     padding: 20px;
     margin: 10px;
-    
-    
 }
+
 .denomination{
     font-weight: bold;
     font-size:larger;
     text-align: center;
 }
+
 #historique, #top_Medium, #top_Employe {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -70,4 +69,7 @@
   color: white;
 }
 
-
+#champs {
+    position: absolute;
+    left: 30%;
+}

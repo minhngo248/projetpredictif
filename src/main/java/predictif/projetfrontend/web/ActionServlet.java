@@ -170,6 +170,7 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new DetailRdvEmployeSerialisation();
             }
             break;
+            
             case "employe-pret-rdv": {
                 action = new EmployePretRdvAction();
                 serialisation = new SerialisationGeneral();

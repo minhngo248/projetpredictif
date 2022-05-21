@@ -35,7 +35,7 @@ public class DetailRdvEmployeSerialisation extends Serialisation {
             return;
         }
 
-        container.addProperty("idRdv", rdvEnAttente.getId());
+        container.addProperty("etat", rdvEnAttente.getEtat().toString());
         jsonClient.addProperty("nom", rdvEnAttente.getClient().getPrenom() + " " + rdvEnAttente.getClient().getNom());
         jsonClient.addProperty("dob", sdf.format(rdvEnAttente.getClient().getDateNaissance()));
         jsonClient.addProperty("adresse", rdvEnAttente.getClient().getAdressePostale());
