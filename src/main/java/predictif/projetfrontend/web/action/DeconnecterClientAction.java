@@ -16,8 +16,5 @@ public class DeconnecterClientAction extends Action {
     @Override
     public void executer(HttpServletRequest request) {
         request.getSession().removeAttribute("idClient");
-    }
-
-    
-    
+    } 
 }

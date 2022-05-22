@@ -41,6 +41,7 @@ import predictif.projetfrontend.web.serialisation.AuthentifierClientSerialisatio
 import predictif.projetfrontend.web.serialisation.AuthentifierEmployeSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailClientSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailRdvEmployeSerialisation;
+import predictif.projetfrontend.web.serialisation.InscrireClientSerialisation;
 import predictif.projetfrontend.web.serialisation.Serialisation;
 import predictif.projetfrontend.web.serialisation.SerialisationGeneral;
 import predictif.projetfrontend.web.serialisation.StatistiquesEmployeSerialisation;
@@ -113,7 +114,7 @@ public class ActionServlet extends HttpServlet {
 
             case "inscription": {
                 action = new InscrireClientAction();
-                serialisation =  new SerialisationGeneral();
+                serialisation =  new InscrireClientSerialisation();
             }
             break;
 

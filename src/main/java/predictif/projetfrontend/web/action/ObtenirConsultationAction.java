@@ -33,7 +33,7 @@ public class ObtenirConsultationAction extends Action {
          
         Long idClient = (Long)request.getSession().getAttribute("idClient");
         Client client = service.rechercherClient(idClient);
-        Rdv rdv = new Rdv(); 
+        Rdv rdv; 
         try {
             rdv = service.obtenirConsultation(medium, client);
             request.setAttribute("rdv", rdv);

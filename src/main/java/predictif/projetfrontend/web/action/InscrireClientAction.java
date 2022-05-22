@@ -31,17 +31,16 @@ public class InscrireClientAction extends Action {
         String password = request.getParameter("password");
 
         ServicePredictif service = new ServicePredictif();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    
+            
         Client client;
         try {
-            client = new Client(nom, prenom, login, password, sdf.parse(dateNaissance), adresse, telephone);
-            client = service.inscrire(client);
-
-            request.setAttribute("client", client);
+            client = service.inscrire(new Client(nom, prenom, login, password, sdf.parse(dateNaissance), adresse, telephone));
         } catch (ParseException ex) {
+            client = null;
             Logger.getLogger(InscrireClientAction.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        request.setAttribute("clientInscrip", client);       
     }
 }

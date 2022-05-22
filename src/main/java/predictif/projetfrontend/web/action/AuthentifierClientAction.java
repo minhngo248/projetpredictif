@@ -20,9 +20,7 @@ public class AuthentifierClientAction extends Action {
     public void executer(HttpServletRequest request) {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        
         ServicePredictif service = new ServicePredictif();
-        
         Client client = service.authentifierClient(login, password);
         
         if (client != null) {
