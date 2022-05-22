@@ -58,6 +58,7 @@ public class DetailClientSerialisation extends Serialisation {
                 JsonObject jsonRdv = new JsonObject();
                 jsonRdv.addProperty("dateDemande", sdf.format(rdv.getDateHeureDemande()));
                 jsonRdv.addProperty("medium", rdv.getMedium().getDenomination());
+                System.out.println(rdv);
                 jsonListeRdv.add(jsonRdv);
             }
             jsonClient.add("listeRdv", jsonListeRdv);

@@ -60,7 +60,7 @@ and open the template in the editor.
             <h2>Historique</h2>
             <table id="historique">
                 <tr>
-                    <th>Heure de demande</th>
+                    <th>Date de demande</th>
                     <th>Médium</th>
                 </tr>
             </table>
@@ -97,7 +97,7 @@ and open the template in the editor.
                                 $('#couleur').html(response.profil.couleur);
 
                                 var listeRdv = response.listeRdv;
-                                $.each(listeRdv, function (i, rdv) {
+                                $.each(listeRdv, function (index, rdv) {
                                     $('#historique').append("<tr><td>" +
                                             rdv.dateDemande + "</td><td>" + rdv.medium + "</td></tr>");
                                 });
@@ -134,7 +134,7 @@ and open the template in the editor.
                         data: {
                             todo: 'modifier-mot-de-passe-client',
 
-                            password: champPassword,
+                            password: champPassword
 
                         },
                         dataType: 'json'

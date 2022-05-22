@@ -11,20 +11,21 @@ and open the template in the editor.
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="stopwatch.js"></script>
-        <style>
-            .les_div {
-                float: left;
-                width: 33.33%;
-                border: 5px solid black;
-                padding: 50px;
-                margin: 10px;
-                padding-right: 100px;
-            }
-            .body:after {
-                display: table;
-                clear: both;
-            }
-        </style>
+        <link rel="stylesheet" href="profil.css" type="text/css" >
+        <!-- <style>
+             .les_div {
+                 float: left;
+                 width: 33.33%;
+                 border: 5px solid black;
+                 padding: 50px;
+                 margin: 10px;
+                 padding-right: 100px;
+             }
+             .body:after {
+                 display: table;
+                 clear: both;
+             }
+         </style>-->
     </head>
     <body>
         <div class="header">
@@ -35,7 +36,7 @@ and open the template in the editor.
             <button class="bouton-header" id="bouton-deconnexion">Déconnexion</button>
         </div>
         <div class="body">
-            <div class="les_div">
+            <div class="first_div">
                 <h2>Profil du client</h2>
                 Nom: <span id="nom"></span><br/>
                 <br/>
@@ -54,7 +55,7 @@ and open the template in the editor.
             </div>
 
 
-            <div class="les_div">
+            <div class="second_div">
                 <h2>Historique du client</h2>
                 <table id="historique">
                     <tr>
@@ -65,11 +66,12 @@ and open the template in the editor.
                 </table>
             </div>
 
-            <div class="les_div">
+            <div class="third_div" >
                 <h2>Médium choisi par le client</h2>
-                Nom : <span id="denom"></span><br/> 
-                Type : <span id="role" ></span> <br/>
+                <span id="denom" style='font-weight: bolder'></span><br/> 
+                <span id="role" style='font-style: italic'></span> <br/>
                 <br/>
+                
                 <span id="presentation"></span> <br/>
                 <br/>
             </div>
@@ -78,13 +80,14 @@ and open the template in the editor.
 
 
         <div id="mode" align="center">
-            <span>Durée d'appel: </span>
+            
             <div class="time">
+                <span>Durée d'appel: </span>
                 <b><span class="hour">00</span>
-                <span class="colon">:</span>
-                <span class="minute">00</span>
-                <span class="colon">:</span>
-                <span class="second">00</span></b>
+                    <span class="colon">:</span>
+                    <span class="minute">00</span>
+                    <span class="colon">:</span>
+                    <span class="second">00</span></b>
             </div>
 
             <div id='d1'>
@@ -138,7 +141,7 @@ and open the template in the editor.
 
             </div>
             <div id='d4'>
-                <textarea id="commentaire" name="commentaire" rows="10" cols="200" placeholder="Laissez un commentaire" value="">
+                <textarea id="commentaire" name="commentaire" rows="10" cols="150" placeholder="Laissez un commentaire" value="">
                     
                 </textarea>
                 <br/>
@@ -184,7 +187,10 @@ and open the template in the editor.
                             });
 
                             $('#denom').html(response.medium.denom);
-                            $('#role').html(response.medium.role);
+                            $('#role').html(response.medium.profession);
+                            var prof = response.medium.profession.toLowerCase();
+
+                            $('#role').append("<br/><br/><img src='images/" + prof + ".jpg' width='40' height='40'/>");
                             $('#presentation').html(response.medium.presentation);
 
                         })
@@ -294,8 +300,9 @@ and open the template in the editor.
                         dataType: 'json'
                     })
                             .done(function (response) {
-
+                                
                                 window.location = "accueilEmploye.html";
+                        
                             })
                             .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                                 console.log('Error', error); // LOG dans Console Javascript

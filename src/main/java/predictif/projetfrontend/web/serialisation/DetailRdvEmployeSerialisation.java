@@ -64,7 +64,8 @@ public class DetailRdvEmployeSerialisation extends Serialisation {
 
         JsonObject jsonMedium = new JsonObject();
         jsonMedium.addProperty("denom", rdvEnAttente.getMedium().getDenomination());
-        jsonMedium.addProperty("role", rdvEnAttente.getMedium().getClass().getSimpleName());
+        String profession = rdvEnAttente.getMedium().getClass().toString();
+        jsonMedium.addProperty("profession", profession.substring(profession.lastIndexOf(".") + 1));
         jsonMedium.addProperty("presentation", rdvEnAttente.getMedium().getPresentation());
         container.add("medium", jsonMedium);
 

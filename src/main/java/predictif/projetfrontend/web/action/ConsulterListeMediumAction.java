@@ -5,12 +5,7 @@
  */
 package predictif.projetfrontend.web.action;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import static java.util.Collections.list;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import metier.modele.Medium;
 import metier.service.ServicePredictif;
