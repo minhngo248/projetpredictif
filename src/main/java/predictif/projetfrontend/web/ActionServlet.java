@@ -37,6 +37,7 @@ import predictif.projetfrontend.web.action.DetailRdvEmployeAction;
 import predictif.projetfrontend.web.action.GenererPredictionAction;
 import predictif.projetfrontend.web.action.InscrireClientAction;
 import predictif.projetfrontend.web.action.StatistiquesEmployeAction;
+import predictif.projetfrontend.web.action.TrierMediumProfessionAction;
 import predictif.projetfrontend.web.serialisation.AuthentifierClientSerialisation;
 import predictif.projetfrontend.web.serialisation.AuthentifierEmployeSerialisation;
 import predictif.projetfrontend.web.serialisation.DetailClientSerialisation;
@@ -45,6 +46,7 @@ import predictif.projetfrontend.web.serialisation.InscrireClientSerialisation;
 import predictif.projetfrontend.web.serialisation.Serialisation;
 import predictif.projetfrontend.web.serialisation.SerialisationGeneral;
 import predictif.projetfrontend.web.serialisation.StatistiquesEmployeSerialisation;
+import predictif.projetfrontend.web.serialisation.TrierMediumProfessionSerialisation;
 
 /**
  *
@@ -202,6 +204,11 @@ public class ActionServlet extends HttpServlet {
             }
             break;
             
+            case "trier-profession": {
+                action = new TrierMediumProfessionAction();
+                serialisation = new TrierMediumProfessionSerialisation();
+            }
+            break;
         }
 
         if (action != null && serialisation != null) {

@@ -18,16 +18,16 @@ import metier.modele.Medium;
 
 /**
  *
- * @author lbezie
+ * @author bbbbb
  */
-public class ConsulterListeMediumSerialisation extends Serialisation {
+public class TrierMediumProfessionSerialisation extends Serialisation {
 
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JsonObject jsonMed = new JsonObject();
         JsonArray jsonListeMedium = new JsonArray();
 
-        List<Medium> listeMedium = (List<Medium>) request.getAttribute("listeMedium");
+        List<Medium> listeMedium = (List<Medium>) request.getAttribute("listeMedTri");
         for (Medium medium : listeMedium) {
             System.out.println(medium);
             JsonObject jsonMedium = new JsonObject();
@@ -40,7 +40,7 @@ public class ConsulterListeMediumSerialisation extends Serialisation {
             jsonMedium.addProperty("idMedium", medium.getId());
             jsonListeMedium.add(jsonMedium);
         }
-        jsonMed.add("listeMed", jsonListeMedium);
+        jsonMed.add("listeMedTri", jsonListeMedium);
 
         //Formattage de la structure de données Json
         PrintWriter out = this.getWriter(response);
@@ -48,7 +48,7 @@ public class ConsulterListeMediumSerialisation extends Serialisation {
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
         out.println(gson.toJson(jsonMed));
         //gson.toJson(jsonClient, out);
-        out.close();
+        out.close();        
     }
-
+    
 }

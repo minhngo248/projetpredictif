@@ -169,7 +169,7 @@ and open the template in the editor.
                             var listeRdv = response.client.historique;
                             $.each(listeRdv, function (i, rdv) {
                                 $('#historique').append("<tr><td>" +
-                                        rdv.dateFin + "</td><td>" + rdv.medium + " " + rdv.employe + "</td><td> " + rdv.cmt + " </td></tr>");
+                                        rdv.dateFin + "</td><td>" + rdv.medium + " (" + rdv.employe + ")</td><td> " + rdv.cmt + " </td></tr>");
                             });
 
                             $('#denom').html(response.medium.denom);

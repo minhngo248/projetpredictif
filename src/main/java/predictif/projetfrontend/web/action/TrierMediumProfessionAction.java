@@ -5,6 +5,7 @@
  */
 package predictif.projetfrontend.web.action;
 
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import metier.modele.Medium;
@@ -12,15 +13,16 @@ import metier.service.ServicePredictif;
 
 /**
  *
- * @author lbezie
+ * @author bbbbb
  */
-public class ConsulterListeMediumAction extends Action {
+public class TrierMediumProfessionAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
         ServicePredictif service = new ServicePredictif();
         List<Medium> listeMedium = service.listeMediums();
-        
-        request.setAttribute("listeMedium", listeMedium);
+        Collections.sort(listeMedium, (m1, m2) -> m1.getClass().getTypeName().compareTo(m2.getClass().getTypeName()) );
+        request.setAttribute("listeMedTri", listeMedium);
     }
+    
 }
