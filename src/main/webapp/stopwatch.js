@@ -29,11 +29,11 @@ function start() {
 
 }
 
-/*function stop() {
-    startBtn.classList.remove("active");
-    stopBtn.classList.add("stopActive");
+function stop() {
+//    startBtn.classList.remove("active");
+//    stopBtn.classList.add("stopActive");
     clearInterval(startTimer);
-} */
+} 
 
 function reset() {
 //    startBtn.classList.remove("active");

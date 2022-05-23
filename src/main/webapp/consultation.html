@@ -63,18 +63,16 @@ and open the template in the editor.
             </div>
         </div>
 
-
+        <div class="time" align="center">
+            <span id="text-time">Durée d'appel: </span>
+            <b><span class="hour">00</span>
+                <span class="colon">:</span>
+                <span class="minute">00</span>
+                <span class="colon">:</span>
+                <span class="second">00</span></b>
+        </div>
 
         <div id="mode" align="center">
-            
-            <div class="time">
-                <span>Durée d'appel: </span>
-                <b><span class="hour">00</span>
-                    <span class="colon">:</span>
-                    <span class="minute">00</span>
-                    <span class="colon">:</span>
-                    <span class="second">00</span></b>
-            </div>
 
             <div id='d1'>
                 <button id="bouton-pretRdv">Prêt pour le rendez-vous</button>
@@ -85,7 +83,7 @@ and open the template in the editor.
                 <p style="font-style: italic">Cliquez sur le bouton pour démarrer l'appel. </p>
             </div>
             <div id='d3'>
-                <button id="bouton-terminerAppel" onclick="reset()">Terminer l'appel</button>
+                <button id="bouton-terminerAppel" onclick="stop()">Terminer l'appel</button>
                 <br/>
                 <p style="font-style: italic">Cliquez sur le bouton pour terminer l'appel. </p>
                 <h3>Générer des prédictions</h3>
@@ -266,7 +264,7 @@ and open the template in the editor.
                             .done(function (response) {
                                 d3.style.display = "none";
                                 d4.style.display = "block";
-                                $('.time').hide();
+                                $('#text-time').html("Le rendez-vous est terminé, il a durée ");
                             })
                             .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                                 console.log('Error', error); // LOG dans Console Javascript
